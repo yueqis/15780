@@ -76,3 +76,33 @@ class ModelNew(nn.Module):
 
     def forward(self, x):
         return self.reverse_cumsum.reverse_cumsum_cuda(x, self.dim)
+
+
+import torch
+import torch.nn as nn
+
+class Model(nn.Module):
+    """
+    A model that performs a reverse cumulative sum operation along a specified dimension.
+
+    Parameters:
+        dim (int): The dimension along which to perform the reverse cumulative sum.
+    """
+
+    def __init__(self, dim):
+        super(Model, self).__init__()
+        self.dim = dim
+
+    def forward(self, x):
+        return torch.cumsum(x.flip(self.dim), dim=self.dim).flip(self.dim)
+
+batch_size = 128
+input_shape = (4000,)
+dim = 1
+
+def get_inputs():
+    return [torch.randn(batch_size, *input_shape)]
+
+def get_init_inputs():
+    return [dim]
+
