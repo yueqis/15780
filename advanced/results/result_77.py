@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` class that replaces the standard PyTorch 3D transposed convolution with a custom CUDA kernel using PyTorch's inline CUDA extension mechanism. This implementation includes a basic but functional CUDA kernel for transposed convolution, which you can further optimize based on specific GPU architecture constraints and memory access patterns.
-
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -133,11 +130,22 @@ conv_transpose3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version of Model using a custom CUDA kernel for ConvTranspose3d.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -148,11 +156,15 @@ class ModelNew(nn.Module):
         self.bias_enabled = bias
 
         # Register weights and bias as parameters
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(
+                out_channels, in_channels, kernel_size, kernel_size, kernel_size
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.randn(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Register the custom CUDA operator
         self.conv_transpose3d_cuda = conv_transpose3d_op.conv_transpose3d_cuda
@@ -165,6 +177,5 @@ class ModelNew(nn.Module):
             self.stride,
             self.padding,
             self.dilation,
-            self.bias_enabled
+            self.bias_enabled,
         )
-```

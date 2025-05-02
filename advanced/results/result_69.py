@@ -1,6 +1,3 @@
-Here is the optimized version of your `Model` architecture using a custom CUDA kernel for the transposed convolution operation. This implementation replaces PyTorch's default `ConvTranspose2d` with a custom CUDA operator embedded inline using PyTorch's `load_inline`.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -118,8 +115,20 @@ conv_transpose2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1), padding: tuple = (0, 0), output_padding: tuple = (0, 0), dilation: tuple = (1, 1), groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        output_padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -129,23 +138,28 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.dilation = dilation
         self.groups = groups
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.reset_parameters()
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return conv_transpose2d_op.conv_transpose2d_cuda(
-            x, self.weight, self.bias,
-            list(self.stride), list(self.padding),
-            list(self.output_padding), list(self.dilation),
-            self.groups
+            x,
+            self.weight,
+            self.bias,
+            list(self.stride),
+            list(self.padding),
+            list(self.output_padding),
+            list(self.dilation),
+            self.groups,
         )
-```

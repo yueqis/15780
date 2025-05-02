@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -107,13 +106,31 @@ conv_transpose2d_op = load_inline(
     cpp_sources=conv_transpose2d_cpp_source,
     cuda_sources=conv_transpose2d_cuda_source,
     functions=["conv_transpose2d_cuda"],
-    verbose=False
+    verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv_transpose2d = nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=stride, padding=padding, dilation=dilation, bias=bias)
+        self.conv_transpose2d = nn.ConvTranspose2d(
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=stride,
+            padding=padding,
+            dilation=dilation,
+            bias=bias,
+        )
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
@@ -122,5 +139,11 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Use custom CUDA implementation
-        return self.cuda_op.conv_transpose2d_cuda(x, self.conv_transpose2d.weight, self.kernel_size, self.stride, self.padding, self.dilation)
-```
+        return self.cuda_op.conv_transpose2d_cuda(
+            x,
+            self.conv_transpose2d.weight,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.dilation,
+        )

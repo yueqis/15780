@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -91,10 +90,12 @@ batchnorm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for BatchNorm2d.
     """
+
     def __init__(self, num_features: int):
         """
         Initializes the BatchNorm layer.
@@ -112,17 +113,16 @@ class ModelNew(nn.Module):
 
         Args:
             x (torch.Tensor): Input tensor of shape (batch_size, num_features, *).
-            
+
         Returns:
             torch.Tensor: Output tensor with Batch Normalization applied, same shape as input.
         """
         return self.batchnorm_forward_cuda(
-            x, 
-            self.bn.weight, 
-            self.bn.bias, 
-            self.bn.running_mean, 
-            self.bn.running_var, 
-            self.bn.momentum, 
-            self.bn.eps
+            x,
+            self.bn.weight,
+            self.bn.bias,
+            self.bn.running_mean,
+            self.bn.running_var,
+            self.bn.momentum,
+            self.bn.eps,
         )
-```

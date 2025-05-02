@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` class with a custom CUDA kernel for a 1D convolution operation. The implementation uses PyTorch's inline CUDA extension to embed a hand-written CUDA kernel that performs the convolution directly on the GPU, aiming for performance gains by avoiding the default PyTorch convolution operator.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -106,6 +103,7 @@ conv1d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized 1D convolution using a custom CUDA kernel.
@@ -119,19 +117,32 @@ class ModelNew(nn.Module):
         groups (int, optional): Number of blocked connections from input channels to output channels. Defaults to 1.
         bias (bool, optional): If `True`, adds a learnable bias to the output. Defaults to `False`.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
         self.groups = groups
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         # Initialize weights and biases
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
 
@@ -143,6 +154,12 @@ class ModelNew(nn.Module):
         Returns:
             torch.Tensor: Output tensor of shape (batch_size, out_channels, length_out).
         """
-        return conv1d_op.conv1d_cuda(x, self.weight, self.bias,
-                                     self.stride, self.padding, self.dilation, self.groups)
-```
+        return conv1d_op.conv1d_cuda(
+            x,
+            self.weight,
+            self.bias,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
+        )

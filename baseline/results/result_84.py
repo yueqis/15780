@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -109,20 +108,31 @@ depthwise_conv2d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv_weight = nn.Parameter(torch.Tensor(out_channels, 1, kernel_size, kernel_size))
+        self.conv_weight = nn.Parameter(
+            torch.Tensor(out_channels, 1, kernel_size, kernel_size)
+        )
         if bias:
             self.conv_bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('conv_bias', None)
-        
+            self.register_parameter("conv_bias", None)
+
         # Initialize weights like PyTorch's Conv2d
-        nn.init.kaiming_uniform_(self.conv_weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.conv_weight, nonlinearity="relu")
         if bias:
             nn.init.zeros_(self.conv_bias)
-        
+
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
@@ -134,10 +144,9 @@ class ModelNew(nn.Module):
         out = self.depthwise_conv2d.depthwise_conv2d_cuda(
             x, self.conv_weight, self.kernel_size, self.stride, self.padding
         )
-        
+
         # Add bias if enabled
         if self.bias:
             out = out + self.conv_bias.view(1, -1, 1, 1)
-            
+
         return out
-```

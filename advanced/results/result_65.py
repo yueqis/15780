@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -131,8 +130,19 @@ transposed_conv2d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -144,24 +154,25 @@ class ModelNew(nn.Module):
         self.bias = bias
 
         # Register weight as a parameter
-        self.weight = nn.Parameter(torch.Tensor(in_channels, out_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(in_channels, out_channels // groups, *kernel_size)
+        )
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_out', nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_out", nonlinearity="relu")
 
         # Register the custom CUDA function
         self.transposed_conv2d = transposed_conv2d
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.transposed_conv2d.transposed_conv2d_cuda(
-            x, 
+            x,
             self.weight,
             self.kernel_size,
-            self.stride, 
             self.stride,
-            self.padding, 
+            self.stride,
             self.padding,
-            self.output_padding, 
-            self.output_padding
+            self.padding,
+            self.output_padding,
+            self.output_padding,
         )
-```

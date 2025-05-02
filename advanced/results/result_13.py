@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel for matrix multiplication. The kernel leverages shared memory to improve performance by reducing global memory access latency, and it uses tiling to maximize data reuse.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -57,9 +54,7 @@ torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B) {
 }
 """
 
-matmul_cpp_source = (
-    "torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B);"
-)
+matmul_cpp_source = "torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B);"
 
 # Compile the inline CUDA code for matrix multiplication
 matmul_op = load_inline(
@@ -70,6 +65,7 @@ matmul_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -77,4 +73,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A, B):
         return self.matmul_op.matmul_cuda(A, B)
-```

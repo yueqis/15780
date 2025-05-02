@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -167,10 +166,19 @@ conv2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: tuple = (1, 1), padding: tuple = (0, 0), 
-                 dilation: tuple = (1, 1), groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -179,35 +187,40 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.groups = groups
-        
+
         # Create weight parameter
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
+
         # Initialize weight using Kaiming initialization
-        nn.init.kaiming_normal_(self.weight, mode='fan_out', nonlinearity='relu')
-        
+        nn.init.kaiming_normal_(self.weight, mode="fan_out", nonlinearity="relu")
+
         self.use_bias = bias
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
             self.bias.data.uniform_(-1.0, 1.0)
         else:
-            self.register_parameter('bias', None)
-            
+            self.register_parameter("bias", None)
+
         # Register the custom CUDA operator
         self.conv2d_cuda = conv2d_op.conv2d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Call our custom CUDA implementation of convolution
         result = self.conv2d_cuda(
-            x, self.weight,
-            self.stride[0], self.stride[1],
-            self.padding[0], self.padding[1],
-            self.dilation[0], self.dilation[1]
+            x,
+            self.weight,
+            self.stride[0],
+            self.stride[1],
+            self.padding[0],
+            self.padding[1],
+            self.dilation[0],
+            self.dilation[1],
         )
-        
+
         # Add bias if needed
         if self.use_bias:
             result = result + self.bias.view(1, -1, 1, 1)
-            
+
         return result
-```

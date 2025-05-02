@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -119,8 +118,18 @@ conv_transpose_1d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -129,19 +138,20 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.use_bias = bias
-        
+
         # Define weight and bias as learnable parameters
         self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size))
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights with Kaiming normal initialization
         nn.init.kaiming_normal_(self.weight)
         if bias:
             nn.init.zeros_(self.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return conv_transpose_1d.conv_transpose_1d_cuda(x, self.weight, self.bias, self.stride, self.padding, self.dilation)
-```
+        return conv_transpose_1d.conv_transpose_1d_cuda(
+            x, self.weight, self.bias, self.stride, self.padding, self.dilation
+        )

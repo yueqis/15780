@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -45,10 +44,12 @@ gelu_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA implementation of GELU activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.gelu_op = gelu_op
@@ -64,4 +65,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with GELU applied, same shape as input.
         """
         return self.gelu_op.gelu_cuda(x)
-```

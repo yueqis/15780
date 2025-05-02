@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -98,10 +97,12 @@ layernorm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA implementation of LayerNorm.
     """
+
     def __init__(self, normalized_shape: tuple):
         super(ModelNew, self).__init__()
         self.normalized_shape = normalized_shape
@@ -115,12 +116,11 @@ class ModelNew(nn.Module):
         batch_size = x.size(0)
         feature_dim = x.size(1)
         spatial_dims = x.size()[2:]
-        
+
         x = x.view(batch_size, feature_dim, *spatial_dims)
-        
+
         # Apply custom CUDA LayerNorm
         output = self.layernorm_cuda(x, self.weight, self.bias)
-        
+
         # Restore original shape
         return output.view(original_shape)
-```

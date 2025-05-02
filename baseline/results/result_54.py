@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -121,15 +120,33 @@ custom_conv3d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.weight = nn.Parameter(torch.Tensor(
-            out_channels, in_channels // groups, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                out_channels,
+                in_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
@@ -141,17 +158,22 @@ class ModelNew(nn.Module):
         self.custom_conv3d_op = custom_conv3d
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, mode='fan_out', nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_out", nonlinearity="relu")
         if self.bias is not None:
             nn.init.constant_(self.bias, 0)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         output = self.custom_conv3d_op.custom_conv3d_cuda(
-            x, self.weight, self.kernel_size, self.stride, 
-            self.padding, self.dilation, self.groups)
-        
+            x,
+            self.weight,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
+        )
+
         if self.bias is not None:
             output += self.bias.view(1, -1, 1, 1, 1)
-            
+
         return output
-```

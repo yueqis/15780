@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -120,16 +119,18 @@ group_norm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, num_features: int, num_groups: int):
         super(ModelNew, self).__init__()
         self.gn = nn.GroupNorm(num_groups=num_groups, num_channels=num_features)
         self.num_groups = num_groups
         self.eps = self.gn.eps
-        self.register_buffer('weight', self.gn.weight)
-        self.register_buffer('bias', self.gn.bias)
+        self.register_buffer("weight", self.gn.weight)
+        self.register_buffer("bias", self.gn.bias)
         self.group_norm_cuda = group_norm_op.group_norm_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.group_norm_cuda(x, self.weight, self.bias, self.num_groups, self.eps)
-```
+        return self.group_norm_cuda(
+            x, self.weight, self.bias, self.num_groups, self.eps
+        )

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -35,7 +34,9 @@ torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets) 
 }
 """
 
-hinge_loss_cpp_source = "torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
+hinge_loss_cpp_source = (
+    "torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile the inline CUDA code
 hinge_loss_op = load_inline(
@@ -46,10 +47,12 @@ hinge_loss_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for Hinge Loss computation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.hinge_loss_op = hinge_loss_op
@@ -57,4 +60,3 @@ class ModelNew(nn.Module):
     def forward(self, predictions, targets):
         loss_tensor = self.hinge_loss_op.hinge_loss_cuda(predictions, targets)
         return torch.mean(loss_tensor)
-```

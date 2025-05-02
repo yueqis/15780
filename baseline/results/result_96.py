@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -46,17 +45,18 @@ smooth_l1_loss_op = load_inline(
     cpp_sources=smooth_l1_loss_cpp_source,
     cuda_sources=smooth_l1_loss_cuda_source,
     functions=["smooth_l1_loss_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for Smooth L1 (Huber) Loss.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.smooth_l1_loss = smooth_l1_loss_op.smooth_l1_loss_cuda
 
     def forward(self, predictions, targets):
         return self.smooth_l1_loss(predictions, targets, beta=1.0)
-```

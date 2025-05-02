@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -43,10 +42,12 @@ selu_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for SELU activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.selu_op = selu_op
@@ -62,4 +63,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with SELU applied, same shape as input.
         """
         return self.selu_op.selu_cuda(x)
-```

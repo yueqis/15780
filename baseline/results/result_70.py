@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -134,9 +133,20 @@ custom_conv_transpose3d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, 
-                 dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -145,25 +155,38 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.groups = groups
-        
+
         # Learnable parameters
-        self.weight = nn.Parameter(torch.Tensor(in_channels, out_channels // groups, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                in_channels,
+                out_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_in', nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_in", nonlinearity="relu")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
-            
+
         # Register custom CUDA function
         self.custom_conv_transpose3d = custom_conv_transpose3d.conv_transpose3d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.custom_conv_transpose3d(
-            x, self.weight, self.bias if self.bias is not None else torch.tensor([]),
-            self.kernel_size, self.stride, self.padding, self.dilation, self.groups
+            x,
+            self.weight,
+            self.bias if self.bias is not None else torch.tensor([]),
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
         )
-```

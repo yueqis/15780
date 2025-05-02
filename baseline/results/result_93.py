@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -56,6 +55,7 @@ masked_cumsum_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA kernel for masked cumulative sum.
@@ -78,6 +78,5 @@ class ModelNew(nn.Module):
         # We only support dim=1 in our custom kernel
         if self.dim != 1:
             raise ValueError("Custom masked cumsum kernel only supports dim=1")
-        
+
         return self.masked_cumsum.masked_cumsum_cuda(x, mask)
-```

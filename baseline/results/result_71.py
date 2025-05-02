@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -102,18 +101,29 @@ transposed_conv2d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, 
-                 stride: int = 1, padding: int = 0, output_padding: int = 0, 
-                 groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        
+
         # Only support case where stride == 1 and padding == 0 and output_padding == 0 and groups == 1
         assert stride == 1, "Only stride=1 is supported in custom kernel"
         assert padding == 0, "Only padding=0 is supported in custom kernel"
-        assert output_padding == 0, "Only output_padding=0 is supported in custom kernel"
+        assert (
+            output_padding == 0
+        ), "Only output_padding=0 is supported in custom kernel"
         assert groups == 1, "Only groups=1 is supported in custom kernel"
-        
+
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
@@ -122,34 +132,41 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.groups = groups
         self.bias = bias
-        
+
         # Register weight as a parameter
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)
+        )
+
         # Custom CUDA function
         self.transposed_conv2d = transposed_conv2d
-        
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_in', nonlinearity='leaky_relu')
-        
+        nn.init.kaiming_uniform_(self.weight, mode="fan_in", nonlinearity="leaky_relu")
+
         if bias:
             self.bias_param = nn.Parameter(torch.Tensor(out_channels))
             self.bias_param.data.zero_()
         else:
-            self.register_parameter('bias_param', None)
+            self.register_parameter("bias_param", None)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         batch_size, _, height_in, width_in = x.size()
-        
+
         # Perform transposed convolution using custom CUDA kernel
         output = self.transposed_conv2d.transposed_conv2d_cuda(
-            x, self.weight, batch_size, self.in_channels, self.out_channels,
-            height_in, width_in, self.kernel_size
+            x,
+            self.weight,
+            batch_size,
+            self.in_channels,
+            self.out_channels,
+            height_in,
+            width_in,
+            self.kernel_size,
         )
-        
+
         # Add bias if enabled
         if self.bias:
             output = output + self.bias_param.view(1, self.out_channels, 1, 1)
-            
+
         return output
-```

@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel implementing the max reduction operation. This replaces PyTorch's `torch.max(..., dim=...)` with a hand-written CUDA kernel for performance gains.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -78,6 +75,7 @@ max_reduce_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
@@ -86,4 +84,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.max_reduce.max_reduce_cuda(x, self.dim)
-```

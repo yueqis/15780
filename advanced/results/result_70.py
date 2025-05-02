@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel for transposed 3D convolution. The implementation uses inline CUDA code embedded in PyTorch via `load_inline`. This example replaces the standard `ConvTranspose3d` layer with a custom CUDA operator.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -95,9 +92,20 @@ conv_transpose3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, 
-                 dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -110,11 +118,19 @@ class ModelNew(nn.Module):
         self.bias_flag = bias
 
         # Register learnable parameters
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                out_channels,
+                in_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Initialize weights and biases
         nn.init.xavier_uniform_(self.weight)
@@ -133,6 +149,5 @@ class ModelNew(nn.Module):
             self.stride,
             self.padding,
             self.output_padding,
-            self.groups
+            self.groups,
         )
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -58,10 +57,12 @@ triu_matmul_op = load_inline(
     extra_ldflags=[""],
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model that performs matrix multiplication on upper triangular matrices using a custom CUDA kernel.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.triu_matmul = triu_matmul_op
@@ -78,4 +79,3 @@ class ModelNew(nn.Module):
             torch.Tensor: The product of A and B, also an upper triangular matrix of shape (N, N).
         """
         return self.triu_matmul.triu_matmul_cuda(A, B)
-```

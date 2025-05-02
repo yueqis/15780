@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -115,13 +114,23 @@ conv_transpose3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version of Model using a custom CUDA kernel for 3D transposed convolution.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: tuple = (1, 1, 1), padding: tuple = (0, 0, 0), 
-                 output_padding: tuple = (0, 0, 0), groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1, 1),
+        padding: tuple = (0, 0, 0),
+        output_padding: tuple = (0, 0, 0),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -131,19 +140,21 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.groups = groups
         self.bias = bias
-        
+
         # Create weight parameter
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
+
         # Initialize weights (similar to PyTorch's ConvTranspose3d)
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='leaky_relu', param=0.2)
-        
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="leaky_relu", param=0.2)
+
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
             nn.init.zeros_(self.bias)
         else:
-            self.register_parameter('bias', None)
-            
+            self.register_parameter("bias", None)
+
         self.conv_transpose3d = conv_transpose3d_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -152,22 +163,34 @@ class ModelNew(nn.Module):
         """
         batch_size, in_channels, depth, height, width = x.shape
         _, out_channels, k_depth, k_height, k_width = self.weight.shape
-        
+
         # Call the custom CUDA implementation
         output = self.conv_transpose3d.conv_transpose3d_cuda(
-            x, self.weight,
-            batch_size, in_channels, out_channels,
-            depth, height, width,
-            k_depth, k_height, k_width,
-            self.stride[0], self.stride[1], self.stride[2],
-            self.padding[0], self.padding[1], self.padding[2],
-            self.output_padding[0], self.output_padding[1], self.output_padding[2],
-            self.groups
+            x,
+            self.weight,
+            batch_size,
+            in_channels,
+            out_channels,
+            depth,
+            height,
+            width,
+            k_depth,
+            k_height,
+            k_width,
+            self.stride[0],
+            self.stride[1],
+            self.stride[2],
+            self.padding[0],
+            self.padding[1],
+            self.padding[2],
+            self.output_padding[0],
+            self.output_padding[1],
+            self.output_padding[2],
+            self.groups,
         )
-        
+
         # Add bias if enabled
         if self.bias is not None:
             output += self.bias.view(1, -1, 1, 1, 1)
-            
+
         return output
-```

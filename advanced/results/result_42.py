@@ -1,6 +1,3 @@
-Here is the optimized version of your PyTorch model using a custom CUDA kernel for 2D Max Pooling. This implementation replaces the default `nn.MaxPool2d` with a custom CUDA kernel that is embedded inline using PyTorch's `cpp_extension.load_inline`. The kernel processes tiles of the input tensor in parallel and computes max pooling directly on the GPU.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -137,8 +134,9 @@ maxpool2d_op = load_inline(
     cuda_sources=maxpool2d_cuda_source,
     functions=["maxpool2d_cuda"],
     verbose=True,
-    with_cuda=True
+    with_cuda=True,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self, kernel_size: int, stride: int, padding: int, dilation: int):
@@ -161,6 +159,5 @@ class ModelNew(nn.Module):
             self.padding,
             self.padding,
             self.dilation,
-            self.dilation
+            self.dilation,
         )
-```

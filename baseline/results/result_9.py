@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -88,15 +87,15 @@ matmul_tall_skinny_op = load_inline(
     with_cuda=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matmul_op = matmul_tall_skinny_op
-    
+
     def forward(self, A, B):
         # Ensure both tensors are on the same device
         device = A.device
         A = A.to(device)
         B = B.to(device)
         return self.matmul_op.matmul_tall_skinny_cuda(A, B)
-```

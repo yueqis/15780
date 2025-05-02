@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -128,8 +127,19 @@ conv_transpose3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1, 1), padding: tuple = (0, 0, 0), output_padding: tuple = (0, 0, 0), groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1, 1),
+        padding: tuple = (0, 0, 0),
+        output_padding: tuple = (0, 0, 0),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -141,28 +151,41 @@ class ModelNew(nn.Module):
         self.use_bias = bias
 
         # Create weight parameter
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
+
         # Initialize weights using Kaiming uniform initialization
-        nn.init.kaiming_uniform_(self.weight, a=0.25, mode='fan_in', nonlinearity='leaky_relu')
+        nn.init.kaiming_uniform_(
+            self.weight, a=0.25, mode="fan_in", nonlinearity="leaky_relu"
+        )
 
         # Create bias parameter if needed
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
             nn.init.zeros_(self.bias)
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Allocate output tensor
         output = torch.empty(
             x.size(0),
             self.out_channels,
-            x.size(2) * self.stride[0] - 2 * self.padding[0] + self.kernel_size[0] + self.output_padding[0],
-            x.size(3) * self.stride[1] - 2 * self.padding[1] + self.kernel_size[1] + self.output_padding[1],
-            x.size(4) * self.stride[2] - 2 * self.padding[2] + self.kernel_size[2] + self.output_padding[2],
+            x.size(2) * self.stride[0]
+            - 2 * self.padding[0]
+            + self.kernel_size[0]
+            + self.output_padding[0],
+            x.size(3) * self.stride[1]
+            - 2 * self.padding[1]
+            + self.kernel_size[1]
+            + self.output_padding[1],
+            x.size(4) * self.stride[2]
+            - 2 * self.padding[2]
+            + self.kernel_size[2]
+            + self.output_padding[2],
             device=x.device,
-            dtype=x.dtype
+            dtype=x.dtype,
         )
 
         return conv_transpose3d_op.conv_transpose3d_cuda(
@@ -170,9 +193,14 @@ class ModelNew(nn.Module):
             self.weight.contiguous(),
             self.bias.contiguous() if self.bias is not None else self.bias,
             output,
-            self.stride[0], self.stride[1], self.stride[2],
-            self.padding[0], self.padding[1], self.padding[2],
-            self.output_padding[0], self.output_padding[1], self.output_padding[2],
-            self.groups
+            self.stride[0],
+            self.stride[1],
+            self.stride[2],
+            self.padding[0],
+            self.padding[1],
+            self.padding[2],
+            self.output_padding[0],
+            self.output_padding[1],
+            self.output_padding[2],
+            self.groups,
         )
-```

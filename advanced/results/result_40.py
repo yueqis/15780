@@ -1,6 +1,3 @@
-Here is the optimized architecture `ModelNew` with a custom CUDA implementation of Layer Normalization:
-
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -86,6 +83,7 @@ layer_norm_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, normalized_shape: tuple):
         super(ModelNew, self).__init__()
@@ -93,6 +91,9 @@ class ModelNew(nn.Module):
         self.layer_norm_cuda = layer_norm_op.layer_norm_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        normalized_shape = tuple(x.shape[1:])  # Assume input shape is (batch, channels, height, width)
-        return self.layer_norm_cuda(x, self.ln.weight, self.ln.bias, normalized_shape, self.ln.eps)
-```
+        normalized_shape = tuple(
+            x.shape[1:]
+        )  # Assume input shape is (batch, channels, height, width)
+        return self.layer_norm_cuda(
+            x, self.ln.weight, self.ln.bias, normalized_shape, self.ln.eps
+        )

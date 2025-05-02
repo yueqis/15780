@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel for transposed 2D convolution:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -96,12 +93,23 @@ conv_transpose2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Custom implementation of ConvTranspose2d using a custom CUDA kernel.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, 
-                 padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -110,11 +118,13 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.output_padding = output_padding
         self.groups = groups
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, kernel_size, kernel_size)
+        )
         self.bias = nn.Parameter(torch.Tensor(out_channels)) if bias else None
-        
+
         # Initialize weights and biases
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='leaky_relu', a=0.2)
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="leaky_relu", a=0.2)
         if self.bias is not None:
             nn.init.zeros_(self.bias)
 
@@ -122,4 +132,3 @@ class ModelNew(nn.Module):
         return conv_transpose2d_op.conv_transpose2d_cuda(
             x, self.weight, self.bias, self.stride, self.padding, self.output_padding
         )
-```

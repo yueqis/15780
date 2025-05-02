@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -64,4 +63,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return self.matmul_transpose.matmul_transpose_cuda(A, B)
-```

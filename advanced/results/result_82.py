@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -108,27 +107,38 @@ depthwise_conv2d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
-        self.weight = nn.Parameter(torch.randn(in_channels, 1, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(in_channels, 1, kernel_size, kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.randn(in_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.depthwise_conv2d = depthwise_conv2d
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Apply the custom CUDA implementation of depthwise convolution
-        out = self.depthwise_conv2d.depthwise_conv2d_cuda(x, self.weight, self.kernel_size, self.stride, self.padding)
-        
+        out = self.depthwise_conv2d.depthwise_conv2d_cuda(
+            x, self.weight, self.kernel_size, self.stride, self.padding
+        )
+
         # Add bias if present
         if self.bias is not None:
             out += self.bias.view(1, -1, 1, 1)
-        
+
         return out
-```

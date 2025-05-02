@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel for depthwise 2D convolution. The implementation embeds a CUDA kernel inline using PyTorch's `cpp_extension.load_inline`, replacing the default PyTorch `nn.Conv2d` operation.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -114,11 +111,26 @@ depthwise_conv2d_op = load_inline(
     cpp_sources=depthwise_conv2d_cpp_source,
     cuda_sources=depthwise_conv2d_cuda_source,
     functions=["depthwise_conv2d_cuda"],
-    verbose=True
+    verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size_h: int, kernel_size_w: int, stride_h: int = 1, stride_w: int = 1, padding_h: int = 0, padding_w: int = 0, dilation_h: int = 1, dilation_w: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size_h: int,
+        kernel_size_w: int,
+        stride_h: int = 1,
+        stride_w: int = 1,
+        padding_h: int = 0,
+        padding_w: int = 0,
+        dilation_h: int = 1,
+        dilation_w: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.kernel_size_h = kernel_size_h
         self.kernel_size_w = kernel_size_w
@@ -128,14 +140,16 @@ class ModelNew(nn.Module):
         self.padding_w = padding_w
         self.dilation_h = dilation_h
         self.dilation_w = dilation_w
-        self.weight = nn.Parameter(torch.randn(in_channels, 1, kernel_size_h, kernel_size_w))
+        self.weight = nn.Parameter(
+            torch.randn(in_channels, 1, kernel_size_h, kernel_size_w)
+        )
         self.bias = nn.Parameter(torch.randn(out_channels)) if bias else None
         self.depthwise_conv2d_cuda = depthwise_conv2d_op.depthwise_conv2d_cuda
         self.bias_flag = bias
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         out = self.depthwise_conv2d_cuda(
-            x, 
+            x,
             self.weight,
             self.kernel_size_h,
             self.kernel_size_w,
@@ -144,9 +158,8 @@ class ModelNew(nn.Module):
             self.padding_h,
             self.padding_w,
             self.dilation_h,
-            self.dilation_w
+            self.dilation_w,
         )
         if self.bias_flag:
             out += self.bias.view(1, -1, 1, 1)
         return out
-```

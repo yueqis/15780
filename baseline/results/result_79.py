@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -137,13 +136,24 @@ conv_transpose_1d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Custom implementation of transposed 1D convolution using a CUDA kernel.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        
+
         # Store parameters
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -152,21 +162,21 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.use_bias = bias
-        
+
         # Create weight parameter
         self.weight = nn.Parameter(torch.Tensor(in_channels, out_channels, kernel_size))
-        
+
         # Create bias parameter if needed
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
         nn.init.kaiming_uniform_(self.weight)
         if bias:
             nn.init.zeros_(self.bias)
-            
+
         # Register the CUDA convolution function
         self.conv_transpose_1d_func = conv_transpose_1d
 
@@ -182,10 +192,18 @@ class ModelNew(nn.Module):
         """
         # Expand weight to match expected dimensions (out_channels comes first)
         expanded_weight = self.weight.permute(1, 0, 2).contiguous()
-        
+
         # Call our custom CUDA convolution
         return self.conv_transpose_1d_func.conv_transpose_1d_cuda(
-            x, expanded_weight, self.bias if self.bias is not None else torch.zeros(self.out_channels, device=x.device),
-            self.stride, self.padding, self.dilation, self.use_bias
+            x,
+            expanded_weight,
+            (
+                self.bias
+                if self.bias is not None
+                else torch.zeros(self.out_channels, device=x.device)
+            ),
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.use_bias,
         )
-```

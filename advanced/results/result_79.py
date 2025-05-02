@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -106,8 +105,18 @@ conv1d_transpose_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -116,13 +125,13 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.use_bias = bias
-        
+
         # Create the weight parameter
         self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size))
-        
+
         # Initialize the weight using Kaiming uniform initialization
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='leaky_relu')
-        
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="leaky_relu")
+
         # Create the bias parameter if needed
         if self.use_bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
@@ -130,11 +139,12 @@ class ModelNew(nn.Module):
             bound = 1 / math.sqrt(fan_in)
             nn.init.uniform_(self.bias, -bound, bound)
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Register the custom CUDA op
         self.conv1d_transpose = conv1d_transpose_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.conv1d_transpose.conv1d_transpose_cuda(x, self.weight, self.bias, self.stride, self.padding, self.dilation)
-```
+        return self.conv1d_transpose.conv1d_transpose_cuda(
+            x, self.weight, self.bias, self.stride, self.padding, self.dilation
+        )

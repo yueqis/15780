@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -51,10 +50,10 @@ gemm_module = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return gemm_module.gemm_cuda(A, B)
-```

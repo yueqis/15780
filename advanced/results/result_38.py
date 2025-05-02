@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -45,9 +44,7 @@ torch::Tensor l1_norm_cuda(torch::Tensor x) {
 }
 """
 
-l1_norm_cpp_source = (
-    "torch::Tensor l1_norm_cuda(torch::Tensor x);"
-)
+l1_norm_cpp_source = "torch::Tensor l1_norm_cuda(torch::Tensor x);"
 
 # Compile the inline CUDA code for L1 normalization
 l1_norm = load_inline(
@@ -60,11 +57,11 @@ l1_norm = load_inline(
     extra_ldflags=[""],
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self) -> None:
         super().__init__()
         self.l1_norm = l1_norm
-    
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.l1_norm.l1_norm_cuda(x)
-```

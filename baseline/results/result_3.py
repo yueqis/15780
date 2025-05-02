@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -54,8 +53,9 @@ custom_bmm = load_inline(
     cpp_sources=custom_bmm_cpp_source,
     cuda_sources=custom_bmm_source,
     functions=["custom_bmm_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
@@ -78,5 +78,6 @@ class ModelNew(nn.Module):
         Returns:
             C: Output tensor of shape (batch_size, m, n).
         """
-        return self.custom_bmm.custom_bmm_cuda(A, B, self.batch_size, self.m, self.k, self.n)
-```
+        return self.custom_bmm.custom_bmm_cuda(
+            A, B, self.batch_size, self.m, self.k, self.n
+        )

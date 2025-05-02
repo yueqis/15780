@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` class that replaces the PyTorch `matmul` operation with a custom CUDA kernel for matrix-vector multiplication. This implementation compiles and uses an efficient CUDA kernel to compute `C = A * B`, where `A` is a matrix of shape `(M, K)` and `B` is a vector of shape `(K, 1)`. The result `C` is a vector of shape `(M, 1)`.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -50,6 +47,7 @@ matmul_extension = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -63,4 +61,3 @@ class ModelNew(nn.Module):
 
         # Perform matrix-vector multiplication using the custom CUDA kernel
         return self.matmul_op.matmul_cuda(A, B).unsqueeze(-1)
-```

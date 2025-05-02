@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -109,10 +108,12 @@ mean_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for mean reduction.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -120,4 +121,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.mean_cuda(x, self.dim)
-```

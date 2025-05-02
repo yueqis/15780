@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -105,8 +104,17 @@ custom_maxpool3d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, kernel_size: int, stride: int = None, padding: int = 0, dilation: int = 1, return_indices: bool = False, ceil_mode: bool = False):
+    def __init__(
+        self,
+        kernel_size: int,
+        stride: int = None,
+        padding: int = 0,
+        dilation: int = 1,
+        return_indices: bool = False,
+        ceil_mode: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.kernel_size = kernel_size
         self.stride = stride if stride is not None else kernel_size
@@ -121,9 +129,16 @@ class ModelNew(nn.Module):
             x = x.cuda()
         return self.maxpool3d_cuda.maxpool3d_cuda(
             x,
-            self.kernel_size, self.kernel_size, self.kernel_size,
-            self.stride, self.stride, self.stride,
-            self.padding, self.padding, self.padding,
-            self.dilation, self.dilation, self.dilation
+            self.kernel_size,
+            self.kernel_size,
+            self.kernel_size,
+            self.stride,
+            self.stride,
+            self.stride,
+            self.padding,
+            self.padding,
+            self.padding,
+            self.dilation,
+            self.dilation,
+            self.dilation,
         )
-```

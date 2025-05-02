@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -41,10 +40,12 @@ hardtanh_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for HardTanh activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.hardtanh_cuda = hardtanh_op
@@ -60,4 +61,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with HardTanh applied, same shape as input.
         """
         return self.hardtanh_cuda.hardtanh_cuda(x)
-```

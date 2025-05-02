@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -39,10 +38,12 @@ leaky_relu_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for LeakyReLU activation.
     """
+
     def __init__(self, negative_slope: float = 0.01):
         """
         Initializes the optimized LeakyReLU module.
@@ -62,4 +63,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with LeakyReLU applied, same shape as input.
         """
         return self.leaky_relu_cuda(x, self.negative_slope)
-```

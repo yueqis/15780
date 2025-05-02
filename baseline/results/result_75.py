@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -115,13 +114,23 @@ conv_transpose2d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Custom implementation of transposed convolution using CUDA.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: tuple = (1, 1), padding: tuple = (0, 0), 
-                 dilation: tuple = (1, 1), groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -131,16 +140,17 @@ class ModelNew(nn.Module):
         self.dilation = dilation
         self.groups = groups
         self.bias = bias
-        
+
         # Initialize weights like ConvTranspose2d
-        self.weight = nn.Parameter(torch.Tensor(
-            out_channels, in_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
+
         if bias:
             self.bias_param = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias_param', None)
-            
+            self.register_parameter("bias_param", None)
+
         # Initialize weights
         nn.init.kaiming_uniform_(self.weight, a=0.25)
         if self.bias:
@@ -154,16 +164,20 @@ class ModelNew(nn.Module):
         Forward pass with custom CUDA-based transposed convolution.
         """
         out = self.custom_conv.conv_transpose2d_cuda(
-            x, self.weight,
-            self.kernel_size[0], self.kernel_size[1],
-            self.stride[0], self.stride[1],
-            self.padding[0], self.padding[1],
-            self.dilation[0], self.dilation[1],
-            self.groups
+            x,
+            self.weight,
+            self.kernel_size[0],
+            self.kernel_size[1],
+            self.stride[0],
+            self.stride[1],
+            self.padding[0],
+            self.padding[1],
+            self.dilation[0],
+            self.dilation[1],
+            self.groups,
         )
-        
+
         if self.bias:
             out = out + self.bias_param.view(1, -1, 1, 1)
-            
+
         return out
-```

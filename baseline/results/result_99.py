@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -73,13 +72,15 @@ triplet_margin_loss_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel to compute Triplet Margin Loss.
-    
+
     Parameters:
         margin (float): The margin between the positive and negative samples.
     """
+
     def __init__(self, margin=1.0):
         super(ModelNew, self).__init__()
         self.margin = margin
@@ -87,4 +88,3 @@ class ModelNew(nn.Module):
 
     def forward(self, anchor, positive, negative):
         return self.loss_fn(anchor, positive, negative, self.margin)
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -114,14 +113,38 @@ conv2d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv2d = nn.Conv2d(in_channels, out_channels, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=groups, bias=bias)
+        self.conv2d = nn.Conv2d(
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=stride,
+            padding=padding,
+            dilation=dilation,
+            groups=groups,
+            bias=bias,
+        )
         self.kernel_h, self.kernel_w = kernel_size
         self.stride_h = self.stride_w = stride if isinstance(stride, int) else stride[0]
-        self.padding_h = self.padding_w = padding if isinstance(padding, int) else padding[0]
-        self.dilation_h = self.dilation_w = dilation if isinstance(dilation, int) else dilation[0]
+        self.padding_h = self.padding_w = (
+            padding if isinstance(padding, int) else padding[0]
+        )
+        self.dilation_h = self.dilation_w = (
+            dilation if isinstance(dilation, int) else dilation[0]
+        )
         self.groups = groups
         self.use_bias = bias
         self.conv2d_cuda = conv2d_op.conv2d_cuda
@@ -129,11 +152,16 @@ class ModelNew(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         bias = self.conv2d.bias if self.use_bias else torch.zeros(0, device=x.device)
         return self.conv2d_cuda(
-            x, self.conv2d.weight, bias,
-            self.kernel_h, self.kernel_w,
-            self.stride_h, self.stride_w,
-            self.padding_h, self.padding_w,
-            self.dilation_h, self.dilation_w,
-            self.groups
+            x,
+            self.conv2d.weight,
+            bias,
+            self.kernel_h,
+            self.kernel_w,
+            self.stride_h,
+            self.stride_w,
+            self.padding_h,
+            self.padding_w,
+            self.dilation_h,
+            self.dilation_w,
+            self.groups,
         )
-```

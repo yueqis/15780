@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -83,10 +82,12 @@ argmin_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel to find the index of the minimum value along a specified dimension.
     """
+
     def __init__(self, dim: int):
         """
         Initializes the model with the dimension to perform argmin on.
@@ -109,4 +110,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Tensor containing the indices of the minimum values along the specified dimension.
         """
         return self.argmin_op.argmin_cuda(x, self.dim)
-```

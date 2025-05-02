@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -68,7 +67,9 @@ torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets) {
 }
 """
 
-mse_cpp_source = "torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets);"
+mse_cpp_source = (
+    "torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile the inline CUDA code
 mse_op = load_inline(
@@ -79,6 +80,7 @@ mse_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -86,4 +88,3 @@ class ModelNew(nn.Module):
 
     def forward(self, predictions, targets):
         return self.mse_op.mse_cuda(predictions, targets)
-```

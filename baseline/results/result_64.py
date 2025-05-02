@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -115,8 +114,19 @@ conv1d_transpose_cuda = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -132,15 +142,15 @@ class ModelNew(nn.Module):
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         self.reset_parameters()
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='leaky_relu', a=0.2)
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="leaky_relu", a=0.2)
         if self.bias is not None:
             fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.weight)
-            bound = 1 / (fan_in ** 0.5)
+            bound = 1 / (fan_in**0.5)
             nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -151,6 +161,5 @@ class ModelNew(nn.Module):
             self.stride,
             self.padding,
             self.output_padding,
-            self.groups
+            self.groups,
         )[0]
-```

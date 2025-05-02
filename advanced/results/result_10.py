@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel for the 3D tensor-matrix multiplication using PyTorch's inline CUDA extension mechanism:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -55,13 +52,15 @@ matmul_extension = load_inline(
     cpp_sources=matmul_cpp_source,
     cuda_sources=matmul_cuda_source,
     functions=["matmul_cuda"],
-    verbose=True
+    verbose=True,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for batched matrix multiplication.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matmul_op = matmul_extension.matmul_cuda
@@ -76,4 +75,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor of shape (N, M, L)
         """
         return self.matmul_op(A, B)
-```

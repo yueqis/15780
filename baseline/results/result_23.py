@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -81,11 +80,11 @@ softmax_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
         self.softmax_op = softmax_op
-    
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.softmax_op.softmax_cuda(x)
-```

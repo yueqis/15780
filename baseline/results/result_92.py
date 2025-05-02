@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -40,9 +39,7 @@ torch::Tensor exclusive_cumsum_cuda(torch::Tensor x) {
 }
 """
 
-exclusive_cumsum_cpp_source = (
-    "torch::Tensor exclusive_cumsum_cuda(torch::Tensor x);"
-)
+exclusive_cumsum_cpp_source = "torch::Tensor exclusive_cumsum_cuda(torch::Tensor x);"
 
 # Compile the inline CUDA code
 exclusive_cumsum_op = load_inline(
@@ -52,6 +49,7 @@ exclusive_cumsum_op = load_inline(
     functions=["exclusive_cumsum_cuda"],
     verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
@@ -64,4 +62,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x):
         return self.exclusive_cumsum.exclusive_cumsum_cuda(x)
-```

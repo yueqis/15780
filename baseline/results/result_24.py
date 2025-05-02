@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -86,15 +85,17 @@ log_softmax_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for LogSoftmax activation.
     """
+
     def __init__(self, dim: int = 1):
         super(ModelNew, self).__init__()
         self.dim = dim
         self.log_softmax = log_softmax_op
-    
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         Applies optimized LogSoftmax activation to the input tensor.
@@ -106,4 +107,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with LogSoftmax applied, same shape as input.
         """
         return self.log_softmax.log_softmax_cuda(x)
-```

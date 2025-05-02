@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -83,10 +82,12 @@ min_reduce_extension = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for min reduction.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -94,4 +95,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.min_reduce_cuda(x, self.dim)
-```

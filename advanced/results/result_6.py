@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -90,6 +89,7 @@ matmul_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -97,4 +97,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return self.matmul_op.matmul_cuda(A, B)
-```

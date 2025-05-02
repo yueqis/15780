@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -61,6 +60,7 @@ masked_cumsum_op = load_inline(
     extra_ldflags=[""],
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, dim):
         super(ModelNew, self).__init__()
@@ -69,4 +69,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x, mask):
         return self.masked_cumsum.masked_cumsum_cuda(x, mask, self.dim)
-```

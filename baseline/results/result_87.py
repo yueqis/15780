@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -79,6 +78,7 @@ pointwise_conv2d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, in_channels: int, out_channels: int, bias: bool = False):
         super(ModelNew, self).__init__()
@@ -91,10 +91,10 @@ class ModelNew(nn.Module):
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Initialize weights and biases
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         if bias:
             nn.init.zeros_(self.bias)
 
@@ -109,4 +109,3 @@ class ModelNew(nn.Module):
 
         # Call custom CUDA implementation
         return self.cuda_op(x, weight, bias)
-```

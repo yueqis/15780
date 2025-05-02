@@ -1,6 +1,3 @@
-Here's the optimized `ModelNew` architecture with a custom CUDA kernel for performing a 3D convolution operation. This implementation replaces the standard PyTorch `nn.Conv3d` with a fused CUDA kernel that performs convolution, activation (ReLU), and bias addition in one pass for improved performance.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -199,9 +196,19 @@ conv3d_relu_bias_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1, 1),
-                 padding: tuple = (0, 0, 0), dilation: tuple = (1, 1, 1), groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1, 1),
+        padding: tuple = (0, 0, 0),
+        dilation: tuple = (1, 1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -213,11 +220,13 @@ class ModelNew(nn.Module):
         self.use_bias = bias
 
         # Register weights and bias as parameters
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Initialize weights and bias
         nn.init.kaiming_normal_(self.weight)
@@ -229,14 +238,33 @@ class ModelNew(nn.Module):
         _, _, depth, height, width = x.size()
 
         # Calculate output dimensions
-        out_depth = (depth + 2 * self.padding[0] - self.dilation[0] * (self.kernel_size[0] - 1) - 1) // self.stride[0] + 1
-        out_height = (height + 2 * self.padding[1] - self.dilation[1] * (self.kernel_size[1] - 1) - 1) // self.stride[1] + 1
-        out_width = (width + 2 * self.padding[2] - self.dilation[2] * (self.kernel_size[2] - 1) - 1) // self.stride[2] + 1
+        out_depth = (
+            depth
+            + 2 * self.padding[0]
+            - self.dilation[0] * (self.kernel_size[0] - 1)
+            - 1
+        ) // self.stride[0] + 1
+        out_height = (
+            height
+            + 2 * self.padding[1]
+            - self.dilation[1] * (self.kernel_size[1] - 1)
+            - 1
+        ) // self.stride[1] + 1
+        out_width = (
+            width
+            + 2 * self.padding[2]
+            - self.dilation[2] * (self.kernel_size[2] - 1)
+            - 1
+        ) // self.stride[2] + 1
 
         return conv3d_relu_bias_op.conv3d_relu_bias_cuda(
             x.contiguous(),
             self.weight.contiguous(),
-            self.bias.contiguous() if self.bias is not None else torch.zeros(self.out_channels, device='cuda'),
+            (
+                self.bias.contiguous()
+                if self.bias is not None
+                else torch.zeros(self.out_channels, device="cuda")
+            ),
             batch_size,
             self.in_channels,
             self.out_channels,
@@ -258,6 +286,5 @@ class ModelNew(nn.Module):
             self.groups,
             out_depth,
             out_height,
-            out_width
+            out_width,
         )
-```

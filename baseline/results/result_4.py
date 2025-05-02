@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -43,13 +42,15 @@ matvec_op = load_inline(
     cpp_sources=matvec_cpp_source,
     cuda_sources=matvec_cuda_source,
     functions=["matvec_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for matrix-vector multiplication.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matvec = matvec_op
@@ -58,4 +59,3 @@ class ModelNew(nn.Module):
         M = A.size(0)
         K = A.size(1)
         return self.matvec.matvec_cuda(A, B, M, K)
-```

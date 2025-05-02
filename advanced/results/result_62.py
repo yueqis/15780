@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -110,14 +109,29 @@ conv2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels // groups, kernel_size[0], kernel_size[1]))
+        self.weight = nn.Parameter(
+            torch.randn(
+                out_channels, in_channels // groups, kernel_size[0], kernel_size[1]
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.randn(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
@@ -127,8 +141,14 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.conv2d_op.conv2d_cuda(
-            x, self.weight, self.kernel_size[0], self.kernel_size[1],
-            self.stride, self.stride, self.padding, self.padding,
-            self.dilation, self.dilation
+            x,
+            self.weight,
+            self.kernel_size[0],
+            self.kernel_size[1],
+            self.stride,
+            self.stride,
+            self.padding,
+            self.padding,
+            self.dilation,
+            self.dilation,
         )
-```

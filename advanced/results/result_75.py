@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -80,9 +79,19 @@ conv_transpose2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1),
-                 padding: tuple = (0, 0), dilation: tuple = (1, 1), groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -91,21 +100,37 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.groups = groups
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels // groups, kernel_size[0], kernel_size[1]))
+        self.weight = nn.Parameter(
+            torch.randn(
+                out_channels, in_channels // groups, kernel_size[0], kernel_size[1]
+            )
+        )
         self.bias = nn.Parameter(torch.randn(out_channels)) if bias else None
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         batch_size, _, height, width = x.shape
-        output_height = (height - 1) * self.stride[0] - 2 * self.padding[0] + self.kernel_size[0]
-        output_width = (width - 1) * self.stride[1] - 2 * self.padding[1] + self.kernel_size[1]
+        output_height = (
+            (height - 1) * self.stride[0] - 2 * self.padding[0] + self.kernel_size[0]
+        )
+        output_width = (
+            (width - 1) * self.stride[1] - 2 * self.padding[1] + self.kernel_size[1]
+        )
 
         return conv_transpose2d_op.conv_transpose2d_cuda(
-            x, self.weight, self.bias, self.in_channels, self.out_channels,
-            output_height, output_width,
-            self.kernel_size[0], self.kernel_size[1],
-            self.stride[0], self.stride[1],
-            self.padding[0], self.padding[1],
-            self.dilation[0], self.dilation[1],
-            self.groups
+            x,
+            self.weight,
+            self.bias,
+            self.in_channels,
+            self.out_channels,
+            output_height,
+            output_width,
+            self.kernel_size[0],
+            self.kernel_size[1],
+            self.stride[0],
+            self.stride[1],
+            self.padding[0],
+            self.padding[1],
+            self.dilation[0],
+            self.dilation[1],
+            self.groups,
         )
-```

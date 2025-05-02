@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -118,8 +117,18 @@ conv_transpose3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -127,17 +136,32 @@ class ModelNew(nn.Module):
         self.stride = stride
         self.padding = padding
         self.groups = groups
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels // groups, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(
+                out_channels,
+                in_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            )
+        )
         self.bias = nn.Parameter(torch.randn(out_channels)) if bias else None
         self.conv_transpose3d_op = conv_transpose3d_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         batch_size, _, depth, height, width = x.shape
         return self.conv_transpose3d_op.conv_transpose3d_cuda(
-            x, self.weight, self.bias,
-            batch_size, self.in_channels, self.out_channels,
-            depth, height, width,
-            self.kernel_size, self.stride, self.padding,
-            self.groups
+            x,
+            self.weight,
+            self.bias,
+            batch_size,
+            self.in_channels,
+            self.out_channels,
+            depth,
+            height,
+            width,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.groups,
         )
-```

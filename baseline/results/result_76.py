@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -88,8 +87,17 @@ conv1d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size))
         self.bias = nn.Parameter(torch.Tensor(out_channels)) if bias else None
@@ -103,9 +111,8 @@ class ModelNew(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Use custom CUDA convolution kernel
         output = self.conv1d_cuda(x, self.weight, self.stride, self.dilation)
-        
+
         if self.bias is not None:
             output += self.bias.view(1, -1, 1)
-            
+
         return output
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -90,10 +89,29 @@ conv2d_fused_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.depthwise = nn.Conv2d(in_channels, in_channels, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=in_channels, bias=bias)
+        self.depthwise = nn.Conv2d(
+            in_channels,
+            in_channels,
+            kernel_size,
+            stride=stride,
+            padding=padding,
+            dilation=dilation,
+            groups=in_channels,
+            bias=bias,
+        )
         self.pointwise = nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=bias)
         self.fused_conv = conv2d_fused_op.depthwise_pointwise_conv2d_cuda
         self.stride = stride
@@ -122,14 +140,16 @@ class ModelNew(nn.Module):
         dilation = self.depthwise.dilation[0]
 
         # Compute output dimensions
-        output_height = (input_height + 2 * padding - dilation * (kernel_size - 1) - 1) // stride + 1
-        output_width = (input_width + 2 * padding - dilation * (kernel_size - 1) - 1) // stride + 1
+        output_height = (
+            input_height + 2 * padding - dilation * (kernel_size - 1) - 1
+        ) // stride + 1
+        output_width = (
+            input_width + 2 * padding - dilation * (kernel_size - 1) - 1
+        ) // stride + 1
 
         output = self.fused_conv(
-            x, depthwise_weight, pointwise_weight, bias,
-            stride, padding, dilation
+            x, depthwise_weight, pointwise_weight, bias, stride, padding, dilation
         )
 
         # Reshape output to match expected shape
         return output.view(batch_size, out_channels, output_height, output_width)
-```

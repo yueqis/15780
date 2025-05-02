@@ -1,6 +1,3 @@
-Here's the optimized `ModelNew` class with a custom CUDA kernel implementation for the 2D convolution operation. The kernel is implemented inline using PyTorch's `cpp_extension.load_inline`. This implementation assumes square input and asymmetric kernel shapes, supports dilation and padding as per the original model.
-
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -149,13 +146,22 @@ conv2d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized 2D convolution operation with custom CUDA kernel.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: int = 1, padding: tuple = (0, 0), dilation: tuple = (1, 1), 
-                 bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -164,19 +170,21 @@ class ModelNew(nn.Module):
         self.pad_h, self.pad_w = padding
         self.dilation_h, self.dilation_w = dilation
         self.use_bias = bias
-        
+
         # Register parameters
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, self.kernel_h, self.kernel_w))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, self.kernel_h, self.kernel_w)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         if bias:
             nn.init.zeros_(self.bias)
-            
+
         # Register the custom CUDA op
         self.conv2d_cuda = conv2d_op.conv2d_cuda
 
@@ -185,19 +193,31 @@ class ModelNew(nn.Module):
         Performs the optimized 2D convolution.
         """
         batch_size, _, input_height, input_width = x.shape
-        
+
         # Calculate output dimensions
-        output_height = (input_height + 2 * self.pad_h - self.dilation_h * (self.kernel_h - 1) - 1) // self.stride_h + 1
-        output_width = (input_width + 2 * self.pad_w - self.dilation_w * (self.kernel_w - 1) - 1) // self.stride_w + 1
-        
+        output_height = (
+            input_height + 2 * self.pad_h - self.dilation_h * (self.kernel_h - 1) - 1
+        ) // self.stride_h + 1
+        output_width = (
+            input_width + 2 * self.pad_w - self.dilation_w * (self.kernel_w - 1) - 1
+        ) // self.stride_w + 1
+
         return self.conv2d_cuda(
-            x, self.weight, self.bias if self.use_bias else torch.tensor([]),
-            self.stride_h, self.stride_w,
-            self.pad_h, self.pad_w,
-            self.dilation_h, self.dilation_w,
-            self.in_channels, self.out_channels,
-            self.kernel_h, self.kernel_w,
-            input_height, input_width,
-            output_height, output_width
+            x,
+            self.weight,
+            self.bias if self.use_bias else torch.tensor([]),
+            self.stride_h,
+            self.stride_w,
+            self.pad_h,
+            self.pad_w,
+            self.dilation_h,
+            self.dilation_w,
+            self.in_channels,
+            self.out_channels,
+            self.kernel_h,
+            self.kernel_w,
+            input_height,
+            input_width,
+            output_height,
+            output_width,
         )
-```

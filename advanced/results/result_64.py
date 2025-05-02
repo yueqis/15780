@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -132,8 +131,19 @@ conv1d_transpose_op = load_inline(
     with_cuda=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -143,25 +153,26 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.groups = groups
         self.use_bias = bias
-        
+
         # Initialize weights and bias
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels // groups, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(out_channels, in_channels // groups, kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.randn(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Register custom CUDA op
         self.conv1d_transpose_cuda = conv1d_transpose_op.conv1d_transpose_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.conv1d_transpose_cuda(
-            x, 
-            self.weight, 
-            self.bias if self.bias is not None else torch.tensor([]), 
-            self.stride, 
-            self.padding, 
-            self.output_padding, 
-            self.groups
+            x,
+            self.weight,
+            self.bias if self.bias is not None else torch.tensor([]),
+            self.stride,
+            self.padding,
+            self.output_padding,
+            self.groups,
         )
-```

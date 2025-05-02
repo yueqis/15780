@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -42,10 +41,12 @@ softplus_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for Softplus activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.softplus_op = softplus_op
@@ -61,4 +62,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with Softplus applied, same shape as input.
         """
         return self.softplus_op.softplus_cuda(x)
-```

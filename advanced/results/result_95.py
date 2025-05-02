@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -49,9 +48,7 @@ torch::Tensor cross_entropy_loss_cuda(torch::Tensor predictions, torch::Tensor t
 }
 """
 
-cross_entropy_loss_cpp_source = (
-    "torch::Tensor cross_entropy_loss_cuda(torch::Tensor predictions, torch::Tensor targets, int64_t batch_size, int64_t num_classes);"
-)
+cross_entropy_loss_cpp_source = "torch::Tensor cross_entropy_loss_cuda(torch::Tensor predictions, torch::Tensor targets, int64_t batch_size, int64_t num_classes);"
 
 # Compile the inline CUDA code for cross entropy loss
 cross_entropy_loss_op = load_inline(
@@ -61,8 +58,9 @@ cross_entropy_loss_op = load_inline(
     functions=["cross_entropy_loss_cuda"],
     verbose=True,
     extra_cflags=["-std=c++14"],
-    extra_cuda_cflags=["-O2"]
+    extra_cuda_cflags=["-O2"],
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
@@ -70,5 +68,6 @@ class ModelNew(nn.Module):
         self.cross_entropy_loss = cross_entropy_loss_op
 
     def forward(self, predictions, targets):
-        return self.cross_entropy_loss.cross_entropy_loss_cuda(predictions, targets, predictions.size(0), predictions.size(1))
-```
+        return self.cross_entropy_loss.cross_entropy_loss_cuda(
+            predictions, targets, predictions.size(0), predictions.size(1)
+        )

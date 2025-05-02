@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -72,10 +71,12 @@ avg_pool_1d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for 1D Average Pooling.
     """
+
     def __init__(self, kernel_size: int, stride: int = 1, padding: int = 0):
         super(ModelNew, self).__init__()
         self.kernel_size = kernel_size
@@ -86,7 +87,10 @@ class ModelNew(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Calculate output length manually like PyTorch's AvgPool1d
         input_length = x.size(2)
-        output_length = (input_length + 2 * self.padding - self.kernel_size) // self.stride + 1
+        output_length = (
+            input_length + 2 * self.padding - self.kernel_size
+        ) // self.stride + 1
 
-        return self.avg_pool_cuda(x, self.kernel_size, self.stride, self.padding, output_length)
-```
+        return self.avg_pool_cuda(
+            x, self.kernel_size, self.stride, self.padding, output_length
+        )

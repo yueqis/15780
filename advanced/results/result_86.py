@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -104,7 +103,7 @@ depthwise_conv2d = load_inline(
     cpp_sources=depthwise_conv2d_cpp_source,
     cuda_sources=depthwise_conv2d_source,
     functions=["depthwise_conv2d_cuda"],
-    verbose=False
+    verbose=False,
 )
 
 # CUDA kernel for pointwise convolution
@@ -182,14 +181,25 @@ pointwise_conv2d = load_inline(
     cpp_sources=pointwise_conv2d_cpp_source,
     cuda_sources=pointwise_conv2d_source,
     functions=["pointwise_conv2d_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized version of Model using custom CUDA kernels for depthwise-separable 2D convolution.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -200,8 +210,12 @@ class ModelNew(nn.Module):
         self.bias = bias
 
         # Depthwise weights and Pointwise weights
-        self.depthwise_weight = nn.Parameter(torch.Tensor(in_channels, 1, kernel_size, kernel_size))
-        self.pointwise_weight = nn.Parameter(torch.Tensor(out_channels, in_channels, 1, 1))
+        self.depthwise_weight = nn.Parameter(
+            torch.Tensor(in_channels, 1, kernel_size, kernel_size)
+        )
+        self.pointwise_weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, 1, 1)
+        )
 
         # Custom CUDA ops
         self.depthwise_conv2d = depthwise_conv2d
@@ -217,16 +231,17 @@ class ModelNew(nn.Module):
         """
         # Depthwise convolution
         x = self.depthwise_conv2d.depthwise_conv2d_cuda(
-            x, 
-            self.depthwise_weight, 
-            self.kernel_size, 
-            self.stride, 
-            self.padding, 
-            self.dilation
+            x,
+            self.depthwise_weight,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.dilation,
         )
 
         # Pointwise convolution
-        x = self.pointwise_conv2d.pointwise_conv2d_cuda(x, self.pointwise_weight, self.out_channels)
+        x = self.pointwise_conv2d.pointwise_conv2d_cuda(
+            x, self.pointwise_weight, self.out_channels
+        )
 
         return x
-```

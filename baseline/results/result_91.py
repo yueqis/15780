@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -55,8 +54,9 @@ reverse_cumsum_op = load_inline(
     cpp_sources=reverse_cumsum_cpp_binding,
     cuda_sources=reverse_cumsum_cuda_code,
     functions=["reverse_cumsum_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
@@ -70,4 +70,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x):
         return self.reverse_cumsum(x, self.dim)
-```

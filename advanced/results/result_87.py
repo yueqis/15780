@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -102,6 +101,7 @@ pointwise_conv2d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized implementation of pointwise 2D convolution using a custom CUDA kernel.
@@ -110,6 +110,7 @@ class ModelNew(nn.Module):
         out_channels (int): Number of channels produced by the convolution.
         bias (bool, optional): If `True`, adds a learnable bias to the output. Defaults to `False`.
     """
+
     def __init__(self, in_channels: int, out_channels: int, bias: bool = False):
         super(ModelNew, self).__init__()
         self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels))
@@ -117,7 +118,7 @@ class ModelNew(nn.Module):
         self.reset_parameters()
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='linear')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="linear")
         if self.bias is not None:
             fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.weight)
             bound = 1 / math.sqrt(fan_in)
@@ -132,4 +133,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor of shape (batch_size, out_channels, height, width).
         """
         return pointwise_conv2d.pointwise_conv2d_cuda(x, self.weight, self.bias)
-```

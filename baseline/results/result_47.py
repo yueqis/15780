@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -78,13 +77,15 @@ sum_reduce_op = load_inline(
     cpp_sources=sum_reduce_cpp_decl,
     cuda_sources=sum_reduce_cuda_code,
     functions=["sum_reduce_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for sum reduction.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -92,4 +93,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.sum_reduce.sum_reduce_cuda(x, self.dim)
-```

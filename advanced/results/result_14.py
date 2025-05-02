@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -50,6 +49,7 @@ matmul_triu_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -57,4 +57,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A, B):
         return self.matmul_triu.matmul_triu_cuda(A, B)
-```

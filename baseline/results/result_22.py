@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -43,10 +42,12 @@ tanh_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model that uses a custom CUDA kernel to compute Tanh activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.tanh_op = tanh_op
@@ -62,4 +63,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with Tanh applied, same shape as input.
         """
         return self.tanh_op.tanh_cuda(x)
-```

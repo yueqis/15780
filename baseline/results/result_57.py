@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -134,11 +133,23 @@ conv_transpose2d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version of Model using custom CUDA kernel for transposed 2D convolution.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -147,13 +158,15 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.output_padding = output_padding
         self.groups = groups
-        
+
         # Create weight tensor with standard layout: (out_channels, in_channels, kernel_size, kernel_size)
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)
+        )
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_in', nonlinearity='relu')
-        
+        nn.init.kaiming_uniform_(self.weight, mode="fan_in", nonlinearity="relu")
+
         self.cuda_conv_transpose2d = conv_transpose2d
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -173,6 +186,5 @@ class ModelNew(nn.Module):
             self.stride,
             self.padding,
             self.output_padding,
-            self.groups
+            self.groups,
         )
-```

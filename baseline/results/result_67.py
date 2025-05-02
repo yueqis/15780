@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -94,10 +93,11 @@ conv1d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Custom 1D convolution model using a CUDA-accelerated kernel.
-    
+
     Args:
         in_channels (int): Number of channels in the input tensor.
         out_channels (int): Number of channels produced by the convolution.
@@ -107,11 +107,20 @@ class ModelNew(nn.Module):
         dilation (int, optional): Spacing between kernel elements. Defaults to 1.
         groups (int, optional): Number of blocked connections from input channels to output channels. Defaults to 1.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, 
-                 stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+    ):
         super(ModelNew, self).__init__()
         self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size))
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
@@ -127,5 +136,6 @@ class ModelNew(nn.Module):
         Returns:
             torch.Tensor: Output tensor of shape (batch_size, out_channels, length_out).
         """
-        return conv1d_op.conv1d_cuda(x, self.weight, self.stride, self.padding, self.dilation, self.groups)
-```
+        return conv1d_op.conv1d_cuda(
+            x, self.weight, self.stride, self.padding, self.dilation, self.groups
+        )

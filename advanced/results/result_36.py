@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -62,6 +61,7 @@ rms_norm_extension = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, num_features: int, eps: float = 1e-5):
         super(ModelNew, self).__init__()
@@ -75,11 +75,10 @@ class ModelNew(nn.Module):
         original_shape = x.shape
         x = x.view(batch_size, self.num_features, -1)
         x = x.transpose(1, 2).contiguous()  # Shape: [batch_size, H*W, num_features]
-        
+
         # Apply custom CUDA RMS Norm
         x = self.rms_norm.rms_norm_cuda(x, self.eps, self.num_features)
 
         # Restore original shape
         x = x.transpose(1, 2).contiguous()
         return x.view(original_shape)
-```

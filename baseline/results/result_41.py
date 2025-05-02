@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -86,23 +85,38 @@ maxpool1d_op = load_inline(
     cpp_sources=maxpool1d_cpp_source,
     cuda_sources=maxpool1d_cuda_source,
     functions=["maxpool1d_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA implementation of Max Pooling 1D.
     """
-    def __init__(self, kernel_size: int, stride: int = None, padding: int = 0, dilation: int = 1, return_indices: bool = False):
+
+    def __init__(
+        self,
+        kernel_size: int,
+        stride: int = None,
+        padding: int = 0,
+        dilation: int = 1,
+        return_indices: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.kernel_size = kernel_size
         self.stride = stride if stride is not None else kernel_size
         self.padding = padding
         self.dilation = dilation
         self.return_indices = return_indices
-        
+
         # Use PyTorch's functional API to handle cases we don't optimize
-        self.maxpool = nn.MaxPool1d(kernel_size=kernel_size, stride=self.stride, padding=padding, dilation=dilation, return_indices=return_indices)
+        self.maxpool = nn.MaxPool1d(
+            kernel_size=kernel_size,
+            stride=self.stride,
+            padding=padding,
+            dilation=dilation,
+            return_indices=return_indices,
+        )
         self.cuda_op = maxpool1d_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -118,10 +132,11 @@ class ModelNew(nn.Module):
         if self.return_indices:
             # If indices are required, fall back to PyTorch implementation
             return self.maxpool(x)
-        
+
         # Move input to GPU if not already there
         if not x.is_cuda:
             x = x.cuda()
-        
-        return self.cuda_op.maxpool1d_cuda(x, self.kernel_size, self.stride, self.padding, self.dilation)
-```
+
+        return self.cuda_op.maxpool1d_cuda(
+            x, self.kernel_size, self.stride, self.padding, self.dilation
+        )

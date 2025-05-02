@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -45,6 +44,7 @@ cumprod_dim1_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for cumulative product along dim=1.
@@ -59,6 +59,7 @@ class ModelNew(nn.Module):
     def forward(self, x):
         # Only support dim=1 in this optimized version
         if self.dim != 1:
-            raise ValueError("This optimized model only supports cumulative product along dim=1")
+            raise ValueError(
+                "This optimized model only supports cumulative product along dim=1"
+            )
         return self.cumprod_op.cumprod_dim1_cuda(x)
-```

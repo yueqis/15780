@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -90,17 +89,18 @@ cross_entropy_op = load_inline(
     cpp_sources=cross_entropy_cpp_source,
     cuda_sources=cross_entropy_cuda_source,
     functions=["cross_entropy_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA kernel for Cross Entropy Loss.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.cross_entropy = cross_entropy_op
 
     def forward(self, predictions, targets):
         return self.cross_entropy.cross_entropy_cuda(predictions, targets)
-```

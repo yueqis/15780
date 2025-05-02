@@ -1,6 +1,3 @@
-Here is the optimized version of your model using a custom CUDA kernel for the lower triangular matrix multiplication. The key optimization is fusing `torch.matmul` and `torch.tril` into a single CUDA kernel to avoid redundant computations and memory accesses.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -40,7 +37,9 @@ torch::Tensor tril_matmul_cuda(torch::Tensor A, torch::Tensor B) {
 }
 """
 
-tril_matmul_cpp_source = "torch::Tensor tril_matmul_cuda(torch::Tensor A, torch::Tensor B);"
+tril_matmul_cpp_source = (
+    "torch::Tensor tril_matmul_cuda(torch::Tensor A, torch::Tensor B);"
+)
 
 # Compile the inline CUDA code
 tril_matmul = load_inline(
@@ -48,8 +47,9 @@ tril_matmul = load_inline(
     cpp_sources=tril_matmul_cpp_source,
     cuda_sources=tril_matmul_source,
     functions=["tril_matmul_cuda"],
-    verbose=True
+    verbose=True,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
@@ -58,4 +58,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A, B):
         return self.tril_matmul.tril_matmul_cuda(A, B)
-```

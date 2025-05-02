@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -113,6 +112,7 @@ product_reduce_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
@@ -121,4 +121,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.product_reduce.product_reduce_cuda(x, self.dim)
-```

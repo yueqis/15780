@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -105,6 +104,7 @@ custom_maxpool = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, kernel_size: int, stride: int, padding: int, dilation: int):
         super(ModelNew, self).__init__()
@@ -120,9 +120,12 @@ class ModelNew(nn.Module):
             x = x.cuda()
         return self.maxpool_op.maxpool2d_cuda(
             x,
-            self.kernel_size, self.kernel_size,
-            self.stride, self.stride,
-            self.padding, self.padding,
-            self.dilation, self.dilation
+            self.kernel_size,
+            self.kernel_size,
+            self.stride,
+            self.stride,
+            self.padding,
+            self.padding,
+            self.dilation,
+            self.dilation,
         )
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -74,14 +73,27 @@ conv2d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         assert groups == 1, "Custom CUDA kernel currently supports only groups=1"
         assert dilation == 1, "Custom CUDA kernel currently supports only dilation=1"
         assert not bias, "Custom CUDA kernel currently supports only bias=False"
 
-        self.conv2d_weight = nn.Parameter(torch.empty(out_channels, in_channels, kernel_size, kernel_size))
+        self.conv2d_weight = nn.Parameter(
+            torch.empty(out_channels, in_channels, kernel_size, kernel_size)
+        )
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
@@ -90,6 +102,12 @@ class ModelNew(nn.Module):
         torch.nn.init.kaiming_normal_(self.conv2d_weight)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return conv2d_op.conv2d_cuda(x, self.conv2d_weight, x.size(1), self.conv2d_weight.size(0),
-                                     self.kernel_size, self.stride, self.padding)
-```
+        return conv2d_op.conv2d_cuda(
+            x,
+            self.conv2d_weight,
+            x.size(1),
+            self.conv2d_weight.size(0),
+            self.kernel_size,
+            self.stride,
+            self.padding,
+        )

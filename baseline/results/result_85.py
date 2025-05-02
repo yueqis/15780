@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -106,13 +105,26 @@ depthwise_conv2d = load_inline(
     cpp_sources=conv2d_cpp_source,
     cuda_sources=conv2d_cuda_source,
     functions=["depthwise_conv2d_cuda"],
-    verbose=False
+    verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size_h: int, kernel_size_w: int, 
-                 stride_h: int = 1, stride_w: int = 1, padding_h: int = 0, padding_w: int = 0, 
-                 dilation_h: int = 1, dilation_w: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size_h: int,
+        kernel_size_w: int,
+        stride_h: int = 1,
+        stride_w: int = 1,
+        padding_h: int = 0,
+        padding_w: int = 0,
+        dilation_h: int = 1,
+        dilation_w: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.kernel_size_h = kernel_size_h
         self.kernel_size_w = kernel_size_w
@@ -122,14 +134,16 @@ class ModelNew(nn.Module):
         self.padding_w = padding_w
         self.dilation_h = dilation_h
         self.dilation_w = dilation_w
-        
+
         # Initialize weights and optional bias
-        self.weight = nn.Parameter(torch.Tensor(in_channels, 1, kernel_size_h, kernel_size_w))
+        self.weight = nn.Parameter(
+            torch.Tensor(in_channels, 1, kernel_size_h, kernel_size_w)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights with Kaiming uniform
         nn.init.kaiming_uniform_(self.weight, a=0.1)
         if bias:
@@ -140,10 +154,15 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.depthwise_conv2d_func(
-            x, self.weight, self.bias,
-            self.kernel_size_h, self.kernel_size_w,
-            self.stride_h, self.stride_w,
-            self.padding_h, self.padding_w,
-            self.dilation_h, self.dilation_w
+            x,
+            self.weight,
+            self.bias,
+            self.kernel_size_h,
+            self.kernel_size_w,
+            self.stride_h,
+            self.stride_w,
+            self.padding_h,
+            self.padding_w,
+            self.dilation_h,
+            self.dilation_w,
         )
-```

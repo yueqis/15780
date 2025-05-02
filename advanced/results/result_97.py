@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel that computes cosine similarity loss by replacing PyTorch's `cosine_similarity` and `mean` operations with a fused CUDA implementation:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -86,11 +83,13 @@ cosine_similarity_mean_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
         self.cosine_similarity_mean = cosine_similarity_mean_op
 
     def forward(self, predictions, targets):
-        return self.cosine_similarity_mean.cosine_similarity_mean_cuda(predictions, targets)
-```
+        return self.cosine_similarity_mean.cosine_similarity_mean_cuda(
+            predictions, targets
+        )

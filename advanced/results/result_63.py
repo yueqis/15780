@@ -1,6 +1,3 @@
-Here is the optimized version of your `Model` class using a custom CUDA kernel for 2D convolution. The implementation replaces PyTorch’s default `nn.Conv2d` with a fused CUDA kernel that performs the convolution directly, potentially improving performance by reducing kernel launch overhead and memory bandwidth usage.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -101,16 +98,30 @@ conv2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized 2D convolution using a custom CUDA kernel.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         assert groups == 1, "Only support groups == 1"
         assert dilation == 1, "Only support dilation == 1"
 
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(out_channels, in_channels, kernel_size, kernel_size)
+        )
         self.stride = stride
         self.padding = padding
         self.kernel_size = kernel_size
@@ -119,5 +130,6 @@ class ModelNew(nn.Module):
         self.conv2d_cuda = conv2d_op.conv2d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.conv2d_cuda(x, self.weight, self.kernel_size, self.stride, self.padding)
-```
+        return self.conv2d_cuda(
+            x, self.weight, self.kernel_size, self.stride, self.padding
+        )

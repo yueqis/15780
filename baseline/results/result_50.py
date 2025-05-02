@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -67,13 +66,15 @@ prod_reduce_extension = load_inline(
     cpp_sources=prod_reduce_cpp_source,
     cuda_sources=prod_reduce_source,
     functions=["prod_reduce_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for product reduction.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -81,4 +82,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.prod_reduce(x, self.dim)
-```

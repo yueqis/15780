@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -83,11 +82,13 @@ argmax_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA kernel performing Argmax over a specified dimension.
     Currently supports dim=1 only for this optimized version.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -109,4 +110,3 @@ class ModelNew(nn.Module):
 
         batch_size, dim1, dim2 = x.shape
         return self.argmax_cuda(x, batch_size, dim1, dim2)
-```

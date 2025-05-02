@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -135,28 +134,38 @@ conv_transpose2d_op = load_inline(
     extra_cflags=["-O2"],
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1), padding: tuple = (0, 0), bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels, kernel_size[0], kernel_size[1]))
+        self.weight = nn.Parameter(
+            torch.randn(out_channels, in_channels, kernel_size[0], kernel_size[1])
+        )
         self.bias = nn.Parameter(torch.randn(out_channels)) if bias else None
         self.conv_transpose2d_cuda = conv_transpose2d_op.conv_transpose2d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.conv_transpose2d_cuda(
-            x, 
-            self.weight, 
+            x,
+            self.weight,
             self.bias if self.bias is not None else torch.empty(0),
             self.kernel_size[0],
             self.kernel_size[1],
             self.stride[0],
             self.stride[1],
             self.padding[0],
-            self.padding[1]
+            self.padding[1],
         )
-```

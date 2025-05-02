@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -89,30 +88,39 @@ depthwise_conv2d = load_inline(
     functions=["depthwise_conv2d_cuda"],
     verbose=False,
     extra_cflags=["-O3"],
-    extra_ldflags=[""]
+    extra_ldflags=[""],
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        
+
         # Learnable parameters
         self.weight = nn.Parameter(torch.Tensor(in_channels, kernel_size))
         if bias:
             self.bias = nn.Parameter(torch.Tensor(in_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='linear')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="linear")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
-            
+
         # Register custom op
         self.custom_op = depthwise_conv2d
 
@@ -121,4 +129,3 @@ class ModelNew(nn.Module):
         return self.custom_op.depthwise_conv2d_cuda(
             x, self.weight, self.stride, self.padding, self.dilation, self.kernel_size
         )
-```

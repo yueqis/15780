@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -54,9 +53,7 @@ torch::Tensor einsum_cuda(torch::Tensor A, torch::Tensor B, int b, int i, int j,
 }
 """
 
-einsum_cpp_source = (
-    "torch::Tensor einsum_cuda(torch::Tensor A, torch::Tensor B, int b, int i, int j, int l, int k);"
-)
+einsum_cpp_source = "torch::Tensor einsum_cuda(torch::Tensor A, torch::Tensor B, int b, int i, int j, int l, int k);"
 
 # Compile the inline CUDA code
 einsum_op = load_inline(
@@ -67,6 +64,7 @@ einsum_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -76,4 +74,3 @@ class ModelNew(nn.Module):
         b, i, j, l = A.shape
         l, k = B.shape
         return self.einsum_op.einsum_cuda(A, B, b, i, j, l, k)
-```

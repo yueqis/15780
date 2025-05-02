@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -41,15 +40,16 @@ elu_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA kernel for ELU activation.
     """
+
     def __init__(self, alpha: float = 1.0):
         super(ModelNew, self).__init__()
         self.alpha = alpha
         self.elu_cuda = elu_op.elu_cuda
-    
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.elu_cuda(x, self.alpha)
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -37,7 +36,9 @@ torch::Tensor symm_matmul_cuda(torch::Tensor A, torch::Tensor B) {
 }
 """
 
-symm_matmul_cpp_source = "torch::Tensor symm_matmul_cuda(torch::Tensor A, torch::Tensor B);"
+symm_matmul_cpp_source = (
+    "torch::Tensor symm_matmul_cuda(torch::Tensor A, torch::Tensor B);"
+)
 
 # Compile the inline CUDA code
 symm_matmul = load_inline(
@@ -48,6 +49,7 @@ symm_matmul = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -55,4 +57,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A, B):
         return self.matmul_op.symm_matmul_cuda(A, B)
-```

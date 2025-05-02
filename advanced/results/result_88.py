@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -43,6 +42,7 @@ gelu_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -51,12 +51,14 @@ class ModelNew(nn.Module):
     def forward(self, x):
         return self.gelu.gelu_cuda(x)
 
+
 batch_size = 2000
 dim = 2000
+
 
 def get_inputs():
     return [torch.randn(batch_size, dim).cuda()]
 
+
 def get_init_inputs():
     return []
-```

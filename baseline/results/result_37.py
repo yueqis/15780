@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -77,14 +76,15 @@ frobenius_norm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version of Model that uses a custom CUDA kernel for Frobenius norm normalization.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.frobenius_norm = frobenius_norm_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.frobenius_norm.frobenius_norm_cuda(x)
-```

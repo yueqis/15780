@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -51,17 +50,18 @@ matmul_op = load_inline(
     cpp_sources=matmul_cpp_source,
     cuda_sources=matmul_cuda_source,
     functions=["matmul_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for matrix multiplication.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matmul_op = matmul_op.matmul_cuda
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return self.matmul_op(A, B)
-```

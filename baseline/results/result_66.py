@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -148,7 +147,18 @@ class ModelNew(nn.Module):
     """
     Optimized 3D convolution using a custom CUDA kernel.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: tuple = (1, 1, 1), padding: tuple = (0, 0, 0), dilation: tuple = (1, 1, 1), groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1, 1),
+        padding: tuple = (0, 0, 0),
+        dilation: tuple = (1, 1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -158,17 +168,19 @@ class ModelNew(nn.Module):
         self.dilation = dilation
         self.groups = groups
         self.use_bias = bias
-        
+
         # Register weights as learnable parameters
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, *kernel_size))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels // groups, *kernel_size)
+        )
+
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_out', nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_out", nonlinearity="relu")
         if self.bias is not None:
             nn.init.constant_(self.bias, 0)
 
@@ -186,12 +198,17 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor of shape (batch_size, out_channels, depth_out, height_out, width_out).
         """
         return self.conv3d_cuda(
-            x, 
-            self.weight, 
+            x,
+            self.weight,
             self.bias if self.bias is not None else torch.empty(0),
-            self.stride[0], self.stride[1], self.stride[2],
-            self.padding[0], self.padding[1], self.padding[2],
-            self.dilation[0], self.dilation[1], self.dilation[2],
-            self.groups
+            self.stride[0],
+            self.stride[1],
+            self.stride[2],
+            self.padding[0],
+            self.padding[1],
+            self.padding[2],
+            self.dilation[0],
+            self.dilation[1],
+            self.dilation[2],
+            self.groups,
         )
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -125,17 +124,27 @@ conv3d_op = load_inline(
     cpp_sources=conv3d_cpp_source,
     cuda_sources=conv3d_cuda_source,
     functions=["conv3d_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized version using custom CUDA kernel for 3D convolution.
     Assumes: kernel_size=(3,5,7), stride=1, padding=0, dilation=1, groups=1
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: int = 1, padding: int = 0, dilation: int = 1, 
-                 groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -144,24 +153,27 @@ class ModelNew(nn.Module):
         self.padding = padding
         self.dilation = dilation
         self.groups = groups
-        
+
         # Create weights and bias similar to PyTorch's Conv3d
         kernel_t, kernel_h, kernel_w = kernel_size
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, kernel_t, kernel_h, kernel_w))
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                out_channels, in_channels // groups, kernel_t, kernel_h, kernel_w
+            )
+        )
+
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_out', nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_out", nonlinearity="relu")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
-        
+
         # Reference to the custom CUDA operator
         self.conv3d_cuda = conv3d_op.conv3d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.conv3d_cuda(x, self.weight, self.bias)
-```

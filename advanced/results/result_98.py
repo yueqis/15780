@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -39,7 +38,9 @@ torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets) {
 """
 
 # C++ declaration for the CUDA function
-kl_div_cpp_source = "torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets);"
+kl_div_cpp_source = (
+    "torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile the inline CUDA code
 kl_div_op = load_inline(
@@ -47,17 +48,17 @@ kl_div_op = load_inline(
     cpp_sources=kl_div_cpp_source,
     cuda_sources=kl_div_cuda_source,
     functions=["kl_div_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
         self.kl_div_op = kl_div_op
-    
+
     def forward(self, predictions, targets):
         # Ensure log is applied to predictions
         log_predictions = torch.log(predictions)
         # Use custom CUDA operator for KL divergence
         return self.kl_div_op.kl_div_cuda(log_predictions, targets).mean(dim=0).sum()
-```

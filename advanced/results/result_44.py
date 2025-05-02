@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -73,6 +72,7 @@ avg_pool_1d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, kernel_size: int, stride: int = 1, padding: int = 0):
         super(ModelNew, self).__init__()
@@ -82,5 +82,6 @@ class ModelNew(nn.Module):
         self.padding = padding
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.avg_pool_1d.avg_pool_1d_cuda(x, self.kernel_size, self.stride, self.padding)
-```
+        return self.avg_pool_1d.avg_pool_1d_cuda(
+            x, self.kernel_size, self.stride, self.padding
+        )

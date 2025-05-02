@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -116,8 +115,17 @@ depthwise_conv2d = load_inline(
     with_cuda=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.kernel_size = kernel_size
@@ -128,16 +136,17 @@ class ModelNew(nn.Module):
         if bias:
             self.bias = nn.Parameter(torch.Tensor(in_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.reset_parameters()
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='linear')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="linear")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Only support no bias for now, can be extended
         assert self.bias is None, "Bias is not supported in the custom CUDA kernel yet"
-        return depthwise_conv2d.depthwise_conv2d_cuda(x, self.weight, self.kernel_size, self.stride, self.padding, self.dilation)
-```
+        return depthwise_conv2d.depthwise_conv2d_cuda(
+            x, self.weight, self.kernel_size, self.stride, self.padding, self.dilation
+        )

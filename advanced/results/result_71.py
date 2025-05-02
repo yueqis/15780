@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture using a custom CUDA kernel for transposed 2D convolution. This implementation replaces the default PyTorch `ConvTranspose2d` operator with a custom CUDA kernel embedded inline in the model class.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -86,11 +83,23 @@ conv_transpose2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version of Model using a custom CUDA kernel for transposed 2D convolution.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -102,11 +111,13 @@ class ModelNew(nn.Module):
         self.use_bias = bias
 
         # Register weights and bias as parameters
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels // groups, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(out_channels, in_channels // groups, kernel_size, kernel_size)
+        )
         if bias:
             self.bias = nn.Parameter(torch.randn(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Register the custom CUDA op
         self.conv_transpose2d_cuda = conv_transpose2d_op.conv_transpose2d_cuda
@@ -116,7 +127,11 @@ class ModelNew(nn.Module):
         Performs the transposed 2D convolution using a custom CUDA kernel.
         """
         return self.conv_transpose2d_cuda(
-            x, self.weight, self.bias,
-            self.kernel_size, self.stride, self.padding, self.output_padding
+            x,
+            self.weight,
+            self.bias,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.output_padding,
         )
-```

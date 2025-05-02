@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` class with a custom CUDA kernel implementation for the 3D convolution operation. The code embeds an optimized CUDA kernel inline using PyTorch's `load_inline`, and replaces the standard `nn.Conv3d` layer with this custom implementation.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -114,14 +111,29 @@ conv3d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         assert groups == 1, "Groups > 1 not supported in custom kernel"
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        self.weight = nn.Parameter(torch.randn(out_channels, in_channels, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.randn(
+                out_channels, in_channels, kernel_size, kernel_size, kernel_size
+            )
+        )
         self.bias = None
         if bias:
             self.bias = nn.Parameter(torch.randn(out_channels))
@@ -134,4 +146,3 @@ class ModelNew(nn.Module):
         if self.bias is not None:
             x += self.bias.view(1, -1, 1, 1, 1)
         return x
-```

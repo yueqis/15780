@@ -1,6 +1,3 @@
-Here's the optimized version of your `Model` using a custom CUDA kernel to compute the Mean Squared Error (MSE) directly in a fused fashion. This replaces the sequence of PyTorch operations with a single CUDA kernel, improving performance by reducing kernel launch overhead and memory traffic.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -53,7 +50,9 @@ torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets) {
 }
 """
 
-mse_cpp_source = "torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets);"
+mse_cpp_source = (
+    "torch::Tensor mse_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile the inline CUDA code
 mse_module = load_inline(
@@ -61,8 +60,9 @@ mse_module = load_inline(
     cpp_sources=mse_cpp_source,
     cuda_sources=mse_cuda_source,
     functions=["mse_cuda"],
-    verbose=True
+    verbose=True,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
@@ -71,4 +71,3 @@ class ModelNew(nn.Module):
 
     def forward(self, predictions, targets):
         return self.mse_op(predictions, targets)
-```

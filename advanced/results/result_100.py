@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -30,7 +29,9 @@ torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets) 
 """
 
 # C++ declaration for the CUDA function
-hinge_loss_cpp_source = "torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
+hinge_loss_cpp_source = (
+    "torch::Tensor hinge_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile the inline CUDA code
 hinge_loss_op = load_inline(
@@ -38,14 +39,14 @@ hinge_loss_op = load_inline(
     cpp_sources=hinge_loss_cpp_source,
     cuda_sources=hinge_loss_cuda_source,
     functions=["hinge_loss_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
         self.hinge_loss = hinge_loss_op
-    
+
     def forward(self, predictions, targets):
         return self.hinge_loss.hinge_loss_cuda(predictions, targets)
-```

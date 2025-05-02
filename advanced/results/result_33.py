@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA implementation of the BatchNorm2d layer:
-
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -93,10 +90,12 @@ batchnorm2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for BatchNorm2d.
     """
+
     def __init__(self, num_features: int):
         super(ModelNew, self).__init__()
         self.bn = nn.BatchNorm2d(num_features=num_features)
@@ -110,4 +109,3 @@ class ModelNew(nn.Module):
         running_var = self.bn.running_var
         eps = self.bn.eps
         return self.batchnorm2d_cuda(x, weight, bias, running_mean, running_var, eps)
-```

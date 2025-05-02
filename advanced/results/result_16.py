@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -98,6 +97,7 @@ matmul_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self) -> None:
         super(ModelNew, self).__init__()
@@ -105,4 +105,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return self.matmul_op.matmul_cuda(A.T.contiguous(), B.contiguous())
-```

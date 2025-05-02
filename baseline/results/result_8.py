@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -72,10 +71,12 @@ matmul_extension = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for matrix multiplication.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matmul_op = matmul_extension.matmul_cuda
@@ -84,12 +85,11 @@ class ModelNew(nn.Module):
         # Ensure inputs are contiguous and on the same device
         A = A.contiguous()
         B = B.contiguous()
-        
+
         # Move inputs to GPU if they aren't already
         if not A.is_cuda:
             A = A.cuda()
         if not B.is_cuda:
             B = B.cuda()
-            
+
         return self.matmul_op(A, B)
-```

@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` class that replaces the PyTorch `softmax` operation with a custom CUDA kernel:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -86,6 +83,7 @@ softmax_ops = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, batch_size=16, dim=16384):
         super(ModelNew, self).__init__()
@@ -95,4 +93,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.softmax_cuda(x, self.batch_size, self.dim)
-```

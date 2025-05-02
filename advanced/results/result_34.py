@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -113,10 +112,12 @@ instance_norm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for Instance Normalization.
     """
+
     def __init__(self, num_features: int):
         """
         Initializes the InstanceNorm layer.
@@ -127,11 +128,11 @@ class ModelNew(nn.Module):
         self.weight = nn.Parameter(torch.Tensor(num_features))
         self.bias = nn.Parameter(torch.Tensor(num_features))
         self.num_features = num_features
-        
+
         # Initialize parameters
         nn.init.ones_(self.weight)
         nn.init.zeros_(self.bias)
-        
+
         # Load custom operator
         self.instance_norm_op = instance_norm_op
 
@@ -143,5 +144,6 @@ class ModelNew(nn.Module):
         Returns:
             torch.Tensor: Output tensor with Instance Normalization applied, same shape as input.
         """
-        return self.instance_norm_op.instance_norm_forward_cuda(x, self.weight, self.bias)
-```
+        return self.instance_norm_op.instance_norm_forward_cuda(
+            x, self.weight, self.bias
+        )

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -138,14 +137,23 @@ conv_transpose2d_op = load_inline(
     cpp_sources=transposed_conv2d_cpp_source,
     cuda_sources=transposed_conv2d_cuda_source,
     functions=["transposed_conv2d_cuda"],
-    verbose=False
+    verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: tuple = (1, 1), padding: tuple = (0, 0), 
-                 output_padding: tuple = (0, 0), dilation: tuple = (1, 1), 
-                 groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1),
+        padding: tuple = (0, 0),
+        output_padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -155,31 +163,39 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.dilation = dilation
         self.groups = groups
-        
+
         # Register learnable parameters
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size[0], kernel_size[1]))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, kernel_size[0], kernel_size[1])
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights
-        nn.init.kaiming_uniform_(self.weight, mode='fan_in', nonlinearity='leaky_relu')
+        nn.init.kaiming_uniform_(self.weight, mode="fan_in", nonlinearity="leaky_relu")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
-        
+
         # CUDA operator
         self.transposed_conv2d = conv_transpose2d_op.transposed_conv2d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.transposed_conv2d(
-            x, self.weight, self.bias,
-            self.kernel_size[0], self.kernel_size[1],
-            self.stride[0], self.stride[1],
-            self.padding[0], self.padding[1],
-            self.output_padding[0], self.output_padding[1],
-            self.dilation[0], self.dilation[1],
+            x,
+            self.weight,
+            self.bias,
+            self.kernel_size[0],
+            self.kernel_size[1],
+            self.stride[0],
+            self.stride[1],
+            self.padding[0],
+            self.padding[1],
+            self.output_padding[0],
+            self.output_padding[1],
+            self.dilation[0],
+            self.dilation[1],
             self.groups,
-            self.bias is not None
+            self.bias is not None,
         )
-```

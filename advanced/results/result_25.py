@@ -1,6 +1,3 @@
-Here is the optimized `ModelNew` architecture with a custom CUDA kernel that replaces the default PyTorch Swish activation function (`x * torch.sigmoid(x)`) with a fused element-wise CUDA kernel for improved performance:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -40,6 +37,7 @@ swish_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -47,4 +45,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.swish_op.swish_cuda(x)
-```

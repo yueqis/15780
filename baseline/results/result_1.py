@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -48,10 +47,12 @@ matmul_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for matrix multiplication.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.matmul_op = matmul_op
@@ -68,4 +69,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output matrix C of shape (N, N).
         """
         return self.matmul_op.matmul_cuda(A, B)
-```

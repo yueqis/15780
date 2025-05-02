@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -62,9 +61,7 @@ torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B) {
 }
 """
 
-matmul_cpp_source = (
-    "torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B);"
-)
+matmul_cpp_source = "torch::Tensor matmul_cuda(torch::Tensor A, torch::Tensor B);"
 
 # Compile the inline CUDA code for matrix multiplication
 matmul_custom = load_inline(
@@ -77,6 +74,7 @@ matmul_custom = load_inline(
     extra_ldflags=[""],
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -88,4 +86,3 @@ class ModelNew(nn.Module):
         B = B.cuda()
         # Use our custom CUDA matmul implementation
         return self.matmul_op.matmul_cuda(A, B)
-```

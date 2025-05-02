@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -118,6 +117,7 @@ custom_conv2d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized 2D convolution operation with an asymmetric input and a square kernel using a custom CUDA kernel.
@@ -131,22 +131,35 @@ class ModelNew(nn.Module):
         groups (int, optional): Number of blocked connections from input channels to output channels. Defaults to 1.
         bias (bool, optional): If `True`, adds a learnable bias to the output. Defaults to `False`.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         assert groups == 1, "Groups > 1 not supported in custom convolution"
         assert not bias, "Bias not supported in custom convolution"
-        
+
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        
+
         # Register weight as a parameter
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size))
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
-        
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)
+        )
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
+
         # Register the custom convolution function
         self.custom_conv2d = custom_conv2d
 
@@ -158,5 +171,6 @@ class ModelNew(nn.Module):
         Returns:
             torch.Tensor: Output tensor of shape (batch_size, out_channels, height_out, width_out).
         """
-        return self.custom_conv2d.custom_conv2d_cuda(x, self.weight, self.kernel_size, self.stride, self.padding, self.dilation)
-```
+        return self.custom_conv2d.custom_conv2d_cuda(
+            x, self.weight, self.kernel_size, self.stride, self.padding, self.dilation
+        )

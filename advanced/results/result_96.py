@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -30,9 +29,7 @@ torch::Tensor smooth_l1_loss_cuda(torch::Tensor predictions, torch::Tensor targe
 }
 """
 
-smooth_l1_loss_cpp_source = (
-    "torch::Tensor smooth_l1_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
-)
+smooth_l1_loss_cpp_source = "torch::Tensor smooth_l1_loss_cuda(torch::Tensor predictions, torch::Tensor targets);"
 
 smooth_l1_loss_op = load_inline(
     name="smooth_l1_loss",
@@ -42,10 +39,10 @@ smooth_l1_loss_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
-    
+
     def forward(self, predictions, targets):
         return smooth_l1_loss_op.smooth_l1_loss_cuda(predictions, targets)
-```

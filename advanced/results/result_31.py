@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -37,6 +36,7 @@ elu_cuda_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, alpha: float = 1.0):
         super(ModelNew, self).__init__()
@@ -45,4 +45,3 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.elu_cuda.elu_cuda(x, self.alpha)
-```

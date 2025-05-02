@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -100,10 +99,28 @@ conv_transpose2d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv_transpose2d = nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=stride, padding=padding, dilation=dilation, bias=bias)
+        self.conv_transpose2d = nn.ConvTranspose2d(
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=stride,
+            padding=padding,
+            dilation=dilation,
+            bias=bias,
+        )
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
@@ -116,14 +133,22 @@ class ModelNew(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Extract weights and bias
         weight = self.conv_transpose2d.weight
-        bias = self.conv_transpose2d.bias if self.use_bias else torch.tensor([]).to(x.device)
+        bias = (
+            self.conv_transpose2d.bias
+            if self.use_bias
+            else torch.tensor([]).to(x.device)
+        )
 
         # Call the custom CUDA implementation
         output = self.conv_transpose2d_cuda.conv_transpose2d_cuda(
-            x, weight, bias,
-            self.in_channels, self.out_channels,
-            self.kernel_size, self.stride,
-            self.padding, self.dilation
+            x,
+            weight,
+            bias,
+            self.in_channels,
+            self.out_channels,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.dilation,
         )
         return output
-```

@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -82,10 +81,12 @@ instance_norm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for Instance Normalization.
     """
+
     def __init__(self, num_features: int):
         super(ModelNew, self).__init__()
         self.inorm = nn.InstanceNorm2d(num_features=num_features)
@@ -93,11 +94,12 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Extract parameters from original InstanceNorm layer
-        weight = self.inorm.weight if self.inorm.elementwise_affine else torch.tensor([])
+        weight = (
+            self.inorm.weight if self.inorm.elementwise_affine else torch.tensor([])
+        )
         bias = self.inorm.bias if self.inorm.elementwise_affine else torch.tensor([])
-        
+
         batch_size, channels, height, width = x.shape
         return self.instance_norm_op.instance_norm_cuda(
             x, weight, bias, batch_size, channels, height, width, self.inorm.eps
         )
-```

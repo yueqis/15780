@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -77,10 +76,12 @@ max_reduce_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel to perform Max reduction over dimension 1.
     """
+
     def __init__(self, dim: int):
         super(ModelNew, self).__init__()
         self.dim = dim
@@ -91,4 +92,3 @@ class ModelNew(nn.Module):
         if self.dim != 1:
             raise ValueError("Custom kernel only supports reduction over dimension 1")
         return self.max_reduce.max_reduce_cuda(x, self.dim)
-```

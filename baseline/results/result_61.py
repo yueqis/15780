@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -118,11 +117,23 @@ conv_transpose3d_op = load_inline(
     with_cuda=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Custom implementation of transposed 3D convolution using CUDA.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -134,20 +145,36 @@ class ModelNew(nn.Module):
         self.use_bias = bias
 
         # Initialize weights and bias similar to PyTorch ConvTranspose3d
-        k = 1 / (in_channels * kernel_size ** 3)
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels // groups, kernel_size, kernel_size, kernel_size).uniform_(-k, k))
+        k = 1 / (in_channels * kernel_size**3)
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                out_channels,
+                in_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            ).uniform_(-k, k)
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels).uniform_(-k, k))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         batch_size, _, depth, height, width = x.size()
         return conv_transpose3d_op.conv_transpose3d_cuda(
-            x, self.weight, self.bias,
-            batch_size, self.in_channels, self.out_channels,
-            depth, height, width,
-            self.kernel_size, self.stride, self.padding, self.output_padding,
-            self.groups
+            x,
+            self.weight,
+            self.bias,
+            batch_size,
+            self.in_channels,
+            self.out_channels,
+            depth,
+            height,
+            width,
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.output_padding,
+            self.groups,
         )
-```

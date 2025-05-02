@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -138,4 +137,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Tensor of the same shape as `x` after applying cumulative sum along `dim`.
         """
         return self.cumsum_op.cumsum_cuda(x, self.dim)
-```

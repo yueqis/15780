@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -57,6 +56,7 @@ bmm_module = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -64,4 +64,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
         return self.bmm_op.bmm_cuda(A, B)
-```

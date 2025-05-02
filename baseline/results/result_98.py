@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -60,7 +59,9 @@ torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets) {
 }
 """
 
-kl_div_cpp_source = "torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets);"
+kl_div_cpp_source = (
+    "torch::Tensor kl_div_cuda(torch::Tensor predictions, torch::Tensor targets);"
+)
 
 # Compile inline CUDA code
 kl_div_op = load_inline(
@@ -71,6 +72,7 @@ kl_div_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -78,4 +80,3 @@ class ModelNew(nn.Module):
 
     def forward(self, predictions, targets):
         return self.kl_div(predictions, targets).sum()
-```

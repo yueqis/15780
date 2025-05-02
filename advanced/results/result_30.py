@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -33,13 +32,15 @@ softsign_op = load_inline(
     cpp_sources=softsign_cpp_source,
     cuda_sources=softsign_cuda_source,
     functions=["softsign_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized model using custom CUDA kernel for Softsign activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.softsign = softsign_op
@@ -53,4 +54,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with Softsign applied, same shape as input.
         """
         return self.softsign.softsign_cuda(x)
-```

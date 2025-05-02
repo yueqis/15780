@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -83,6 +82,7 @@ triplet_margin_loss_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, margin=1.0):
         super(ModelNew, self).__init__()
@@ -91,4 +91,3 @@ class ModelNew(nn.Module):
 
     def forward(self, anchor, positive, negative):
         return self.loss_fn(anchor, positive, negative, self.margin)
-```

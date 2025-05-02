@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -136,13 +135,23 @@ conv_transpose3d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized version using custom CUDA kernel for transposed 3D convolution.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, 
-                 stride: tuple = (1, 1, 1), padding: tuple = (0, 0, 0), 
-                 output_padding: tuple = (0, 0, 0), groups: int = 1, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: tuple = (1, 1, 1),
+        padding: tuple = (0, 0, 0),
+        output_padding: tuple = (0, 0, 0),
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -152,28 +161,37 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.groups = groups
         self.bias_flag = bias
-        
+
         # Initialize weights similar to PyTorch's ConvTranspose3d
         k = 1 / (in_channels * kernel_size[0] * kernel_size[1] * kernel_size[2])
-        self.weight = nn.Parameter(torch.empty(out_channels, in_channels, *kernel_size).uniform_(-k, k))
-        
+        self.weight = nn.Parameter(
+            torch.empty(out_channels, in_channels, *kernel_size).uniform_(-k, k)
+        )
+
         if bias:
             self.bias = nn.Parameter(torch.empty(out_channels).uniform_(-k, k))
         else:
-            self.register_parameter('bias', None)
-            
+            self.register_parameter("bias", None)
+
         self.cuda_conv = conv_transpose3d
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.cuda_conv.conv_transpose3d_cuda(
-            x, 
+            x,
             self.weight,
             self.bias if self.bias is not None else torch.tensor([]),
-            self.kernel_size[0], self.kernel_size[1], self.kernel_size[2],
-            self.stride[0], self.stride[1], self.stride[2],
-            self.padding[0], self.padding[1], self.padding[2],
-            self.output_padding[0], self.output_padding[1], self.output_padding[2],
+            self.kernel_size[0],
+            self.kernel_size[1],
+            self.kernel_size[2],
+            self.stride[0],
+            self.stride[1],
+            self.stride[2],
+            self.padding[0],
+            self.padding[1],
+            self.padding[2],
+            self.output_padding[0],
+            self.output_padding[1],
+            self.output_padding[2],
             self.groups,
-            self.bias_flag
+            self.bias_flag,
         )
-```

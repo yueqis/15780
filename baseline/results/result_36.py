@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -55,13 +54,15 @@ rmsnorm_op = load_inline(
     cpp_sources=rmsnorm_cpp_source,
     cuda_sources=rmsnorm_cuda_source,
     functions=["rmsnorm_cuda"],
-    verbose=False
+    verbose=False,
 )
+
 
 class ModelNew(nn.Module):
     """
     Optimized RMSNorm layer using a custom CUDA kernel.
     """
+
     def __init__(self, num_features: int, eps: float = 1e-5):
         super(ModelNew, self).__init__()
         self.num_features = num_features
@@ -71,4 +72,3 @@ class ModelNew(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Apply custom CUDA RMS Normalization
         return self.rmsnorm_cuda(x, self.eps)
-```

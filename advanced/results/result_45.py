@@ -1,6 +1,3 @@
-Here is the optimized version of your PyTorch model using a custom CUDA kernel for 2D Average Pooling. The new architecture `ModelNew` uses an inline CUDA kernel to replace the default `AvgPool2d` operation with a manually implemented average pooling kernel in CUDA, leveraging GPU parallelism for performance gains.
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -110,10 +107,12 @@ avg_pool_2d_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model that performs 2D Average Pooling using a custom CUDA kernel.
     """
+
     def __init__(self, kernel_size: int, stride: int = None, padding: int = 0):
         """
         Initializes the Average Pooling layer using a custom CUDA implementation.
@@ -137,4 +136,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with Average Pooling applied.
         """
         return self.avg_pool_cuda(x, self.kernel_size, self.stride, self.padding)
-```

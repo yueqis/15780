@@ -1,4 +1,3 @@
-```
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -124,17 +123,17 @@ group_norm_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self, num_features: int, num_groups: int):
         super(ModelNew, self).__init__()
         self.num_groups = num_groups
         self.eps = 1e-5
-        self.register_parameter('weight', nn.Parameter(torch.ones(num_features)))
-        self.register_parameter('bias', nn.Parameter(torch.zeros(num_features)))
+        self.register_parameter("weight", nn.Parameter(torch.ones(num_features)))
+        self.register_parameter("bias", nn.Parameter(torch.zeros(num_features)))
         self.group_norm_op = group_norm_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.group_norm_op.group_norm_cuda(
             x, self.weight, self.bias, self.num_groups, self.eps
         )
-```

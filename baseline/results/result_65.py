@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -121,24 +120,65 @@ conv_transpose_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv_transpose2d = nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=stride, padding=padding, output_padding=output_padding, groups=groups, bias=bias)
+        self.conv_transpose2d = nn.ConvTranspose2d(
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride=stride,
+            padding=padding,
+            output_padding=output_padding,
+            groups=groups,
+            bias=bias,
+        )
         self.kernel_h, self.kernel_w = kernel_size
-        self.stride_h, self.stride_w = stride, stride if isinstance(stride, int) else stride[0], stride[1] if isinstance(stride, tuple) else stride
-        self.padding_h, self.padding_w = padding, padding if isinstance(padding, int) else padding[0], padding[1] if isinstance(padding, tuple) else padding
-        self.output_padding_h, self.output_padding_w = output_padding, output_padding if isinstance(output_padding, int) else output_padding[0], output_padding[1] if isinstance(output_padding, tuple) else output_padding
+        self.stride_h, self.stride_w = (
+            stride,
+            stride if isinstance(stride, int) else stride[0],
+            stride[1] if isinstance(stride, tuple) else stride,
+        )
+        self.padding_h, self.padding_w = (
+            padding,
+            padding if isinstance(padding, int) else padding[0],
+            padding[1] if isinstance(padding, tuple) else padding,
+        )
+        self.output_padding_h, self.output_padding_w = (
+            output_padding,
+            output_padding if isinstance(output_padding, int) else output_padding[0],
+            output_padding[1] if isinstance(output_padding, tuple) else output_padding,
+        )
         self.conv_transpose2d_cuda = conv_transpose_op.conv_transpose2d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         weight = self.conv_transpose2d.weight
-        bias = self.conv_transpose2d.bias if self.conv_transpose2d.bias is not None else torch.zeros(weight.size(0), device=x.device)
-        return self.conv_transpose2d_cuda(
-            x, weight, bias,
-            self.kernel_h, self.kernel_w,
-            self.stride_h, self.stride_w,
-            self.padding_h, self.padding_w,
-            self.output_padding_h, self.output_padding_w
+        bias = (
+            self.conv_transpose2d.bias
+            if self.conv_transpose2d.bias is not None
+            else torch.zeros(weight.size(0), device=x.device)
         )
-```
+        return self.conv_transpose2d_cuda(
+            x,
+            weight,
+            bias,
+            self.kernel_h,
+            self.kernel_w,
+            self.stride_h,
+            self.stride_w,
+            self.padding_h,
+            self.padding_w,
+            self.output_padding_h,
+            self.output_padding_w,
+        )

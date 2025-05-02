@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -128,28 +127,41 @@ custom_ops = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, 
-                 stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        
+
         # Initialize weights similar to PyTorch ConvTranspose3d
-        self.weight = nn.Parameter(torch.Tensor(in_channels, out_channels, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                in_channels, out_channels, kernel_size, kernel_size, kernel_size
+            )
+        )
         self.use_bias = bias
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights using Kaiming normal initialization
         nn.init.kaiming_normal_(self.weight)
         if bias:
             nn.init.zeros_(self.bias)
-        
+
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        
+
         self.cuda_op = custom_ops.custom_conv_transpose3d_cuda
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -157,9 +169,7 @@ class ModelNew(nn.Module):
         x = x.cuda()
         weight = self.weight.cuda()
         bias = self.bias.cuda() if self.bias is not None else self.bias
-        
-        return self.cuda_op(x, weight, bias, 
-                           self.stride, self.padding, 
-                           self.dilation, self.use_bias)
-}
-```
+
+        return self.cuda_op(
+            x, weight, bias, self.stride, self.padding, self.dilation, self.use_bias
+        )

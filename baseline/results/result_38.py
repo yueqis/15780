@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -72,10 +71,12 @@ l1_norm_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel for L1 normalization.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.l1_norm = l1_norm_op
@@ -85,4 +86,3 @@ class ModelNew(nn.Module):
         x = x.contiguous().cuda()
         # Use custom CUDA implementation for L1 normalization
         return self.l1_norm.l1_norm_cuda(x)
-```

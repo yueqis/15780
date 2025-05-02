@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -109,10 +108,12 @@ custom_avg_pool_3d = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model with custom CUDA implementation of 3D Average Pooling.
     """
+
     def __init__(self, kernel_size: int, stride: int = None, padding: int = 0):
         """
         Initializes the optimized Average Pooling layer.
@@ -138,9 +139,23 @@ class ModelNew(nn.Module):
         Returns:
             torch.Tensor: Output tensor with Average Pooling applied, shape depends on kernel_size, stride and padding.
         """
-        kernel_d, kernel_h, kernel_w = self.kernel_size, self.kernel_size, self.kernel_size
+        kernel_d, kernel_h, kernel_w = (
+            self.kernel_size,
+            self.kernel_size,
+            self.kernel_size,
+        )
         stride_d, stride_h, stride_w = self.stride, self.stride, self.stride
         pad_d, pad_h, pad_w = self.padding, self.padding, self.padding
-        
-        return self.avg_pool_cuda(x, kernel_d, kernel_h, kernel_w, stride_d, stride_h, stride_w, pad_d, pad_h, pad_w)
-```
+
+        return self.avg_pool_cuda(
+            x,
+            kernel_d,
+            kernel_h,
+            kernel_w,
+            stride_d,
+            stride_h,
+            stride_w,
+            pad_d,
+            pad_h,
+            pad_w,
+        )

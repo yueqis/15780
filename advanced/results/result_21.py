@@ -1,6 +1,3 @@
-Here is the optimized architecture `ModelNew` with a custom CUDA kernel implementation for the Sigmoid activation function:
-
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -38,10 +35,12 @@ sigmoid_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized model using a custom CUDA kernel to apply Sigmoid activation.
     """
+
     def __init__(self):
         super(ModelNew, self).__init__()
         self.sigmoid_op = sigmoid_op
@@ -55,4 +54,3 @@ class ModelNew(nn.Module):
             torch.Tensor: Output tensor with Sigmoid applied, same shape as input.
         """
         return self.sigmoid_op.sigmoid_cuda(x)
-```

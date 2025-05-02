@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -106,8 +105,19 @@ conv_transpose3d_op = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, output_padding: int = 0, groups: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        output_padding: int = 0,
+        groups: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -117,14 +127,22 @@ class ModelNew(nn.Module):
         self.output_padding = output_padding
         self.groups = groups
         self.bias_flag = bias
-        
+
         # Register weight and bias as parameters
-        self.weight = nn.Parameter(torch.Tensor(in_channels, out_channels // groups, kernel_size, kernel_size, kernel_size))
+        self.weight = nn.Parameter(
+            torch.Tensor(
+                in_channels,
+                out_channels // groups,
+                kernel_size,
+                kernel_size,
+                kernel_size,
+            )
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
-        
+            self.register_parameter("bias", None)
+
         # Initialize weights and bias
         nn.init.xavier_uniform_(self.weight)
         if bias:
@@ -135,13 +153,12 @@ class ModelNew(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.custom_conv_transpose3d(
-            x, 
-            self.weight, 
-            self.bias if self.bias is not None else torch.tensor([]), 
-            self.kernel_size, 
-            self.stride, 
-            self.padding, 
-            self.output_padding, 
-            self.groups
+            x,
+            self.weight,
+            self.bias if self.bias is not None else torch.tensor([]),
+            self.kernel_size,
+            self.stride,
+            self.padding,
+            self.output_padding,
+            self.groups,
         )
-```

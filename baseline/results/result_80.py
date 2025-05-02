@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -149,8 +148,18 @@ conv2d_custom_op = load_inline(
     with_cuda=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: tuple, stride: int = 1, padding: tuple = (0, 0), dilation: tuple = (1, 1), bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: tuple,
+        stride: int = 1,
+        padding: tuple = (0, 0),
+        dilation: tuple = (1, 1),
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -158,18 +167,20 @@ class ModelNew(nn.Module):
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size[0], kernel_size[1]))
+        self.weight = nn.Parameter(
+            torch.Tensor(out_channels, in_channels, kernel_size[0], kernel_size[1])
+        )
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
         self.reset_parameters()
 
         # Load custom CUDA op
         self.conv2d_custom = conv2d_custom_op
 
     def reset_parameters(self):
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='linear')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="linear")
         if self.bias is not None:
             nn.init.zeros_(self.bias)
 
@@ -187,11 +198,10 @@ class ModelNew(nn.Module):
             self.dilation[0],
             self.dilation[1],
             self.kernel_size[0],
-            self.kernel_size[1]
+            self.kernel_size[1],
         )
-        
+
         if self.bias is not None:
             out += self.bias.view(1, -1, 1, 1)
 
         return out
-```

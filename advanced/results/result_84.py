@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -106,6 +105,7 @@ depthwise_conv2d = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
     """
     Optimized implementation of depthwise 2D convolution using a custom CUDA kernel.
@@ -117,14 +117,25 @@ class ModelNew(nn.Module):
         padding (int, optional): Padding applied to the input. Defaults to 0.
         bias (bool, optional): If `True`, adds a learnable bias to the output. Defaults to `False`.
     """
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, padding: int = 0, bias: bool = False):
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
-        self.conv_weights = nn.Parameter(torch.Tensor(in_channels, kernel_size, kernel_size))
-        nn.init.kaiming_uniform_(self.conv_weights, nonlinearity='relu')
+        self.conv_weights = nn.Parameter(
+            torch.Tensor(in_channels, kernel_size, kernel_size)
+        )
+        nn.init.kaiming_uniform_(self.conv_weights, nonlinearity="relu")
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
-        
+
         # Register the custom CUDA convolution function
         self.depthwise_conv2d = depthwise_conv2d
 
@@ -139,4 +150,3 @@ class ModelNew(nn.Module):
         return self.depthwise_conv2d.depthwise_conv2d_cuda(
             x, self.conv_weights, self.kernel_size, self.stride, self.padding
         )
-```

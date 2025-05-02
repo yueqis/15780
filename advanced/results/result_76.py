@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -87,8 +86,17 @@ conv1d_cuda_op = load_inline(
     verbose=True,
 )
 
+
 class ModelNew(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int, stride: int = 1, dilation: int = 1, bias: bool = False):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int,
+        stride: int = 1,
+        dilation: int = 1,
+        bias: bool = False,
+    ):
         super(ModelNew, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -102,10 +110,10 @@ class ModelNew(nn.Module):
         if bias:
             self.bias = nn.Parameter(torch.Tensor(out_channels))
         else:
-            self.register_parameter('bias', None)
+            self.register_parameter("bias", None)
 
         # Initialize weights and bias
-        nn.init.kaiming_uniform_(self.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.weight, nonlinearity="relu")
         if bias:
             nn.init.zeros_(self.bias)
 
@@ -113,5 +121,6 @@ class ModelNew(nn.Module):
         self.conv1d_cuda = conv1d_cuda_op
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.conv1d_cuda.conv1d_cuda(x, self.weight, self.bias, self.stride, self.dilation, self.use_bias)
-```
+        return self.conv1d_cuda.conv1d_cuda(
+            x, self.weight, self.bias, self.stride, self.dilation, self.use_bias
+        )

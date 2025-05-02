@@ -1,4 +1,3 @@
-```python
 import torch
 import torch.nn as nn
 from torch.utils.cpp_extension import load_inline
@@ -44,6 +43,7 @@ matrix_scalar_mul = load_inline(
     verbose=False,
 )
 
+
 class ModelNew(nn.Module):
     def __init__(self):
         super(ModelNew, self).__init__()
@@ -51,4 +51,3 @@ class ModelNew(nn.Module):
 
     def forward(self, A: torch.Tensor, s: float) -> torch.Tensor:
         return self.matrix_scalar_mul.matrix_scalar_mul_cuda(A, s)
-```
