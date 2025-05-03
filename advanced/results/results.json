@@ -1,0 +1,630 @@
+[
+  {
+    "task_id": 1,
+    "script": "result_1.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/matmul_custom/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module matmul_custom...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module matmul_custom...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_1.py\", line 131, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 2,
+    "script": "result_10.py",
+    "status": "success",
+    "Model": "0.8669312000274658 ms",
+    "ModelNew": "47.52694320678711 ms"
+  },
+  {
+    "task_id": 3,
+    "script": "result_100.py",
+    "status": "success",
+    "Model": "0.01858907034227126 ms",
+    "ModelNew": "0.014561852616699119 ms"
+  },
+  {
+    "task_id": 4,
+    "script": "result_11.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/einsum/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module einsum...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module einsum...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_11.py\", line 132, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: CUDA error: an illegal memory access was encountered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions."
+  },
+  {
+    "task_id": 5,
+    "script": "result_12.py",
+    "status": "success",
+    "Model": "2.1867279410362244 ms",
+    "ModelNew": "0.0871716454813752 ms"
+  },
+  {
+    "task_id": 6,
+    "script": "result_13.py",
+    "status": "success",
+    "Model": "2.1688719987869263 ms",
+    "ModelNew": "15.096832275390625 ms"
+  },
+  {
+    "task_id": 7,
+    "script": "result_14.py",
+    "status": "success",
+    "Model": "2.214951992034912 ms",
+    "ModelNew": "11.291680335998535 ms"
+  },
+  {
+    "task_id": 8,
+    "script": "result_15.py",
+    "status": "success",
+    "Model": "2.211080014705658 ms",
+    "ModelNew": "9.011167526245117 ms"
+  },
+  {
+    "task_id": 9,
+    "script": "result_16.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/matmul_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module matmul_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module matmul_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_16.py\", line 152, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: CUDA error: an illegal memory access was encountered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions."
+  },
+  {
+    "task_id": 10,
+    "script": "result_17.py",
+    "status": "success",
+    "Model": "0.3133390752168802 ms",
+    "ModelNew": "16.957439422607422 ms"
+  },
+  {
+    "task_id": 11,
+    "script": "result_18.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/matmul_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module matmul_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module matmul_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_18.py\", line 159, in <module>\n    model_new_result = ModelNew()(*inputs)\n                       ^^^^^^^^^^\nTypeError: ModelNew.__init__() missing 3 required positional arguments: 'M', 'K', and 'N'"
+  },
+  {
+    "task_id": 12,
+    "script": "result_19.py",
+    "status": "success",
+    "Model": "0.00669436257506846 ms",
+    "ModelNew": "0.010328039013576217 ms"
+  },
+  {
+    "task_id": 13,
+    "script": "result_2.py",
+    "status": "success",
+    "Model": "0.3111229594107027 ms",
+    "ModelNew": "1.9279679775238037 ms"
+  },
+  {
+    "task_id": 14,
+    "script": "result_20.py",
+    "status": "success",
+    "Model": "0.006632452821886202 ms",
+    "ModelNew": "0.01014586405611588 ms"
+  },
+  {
+    "task_id": 15,
+    "script": "result_21.py",
+    "status": "success",
+    "Model": "0.008011270422816463 ms",
+    "ModelNew": "0.010633834151596558 ms"
+  },
+  {
+    "task_id": 16,
+    "script": "result_22.py",
+    "status": "success",
+    "Model": "0.006722909144379876 ms",
+    "ModelNew": "0.007030857134460737 ms"
+  },
+  {
+    "task_id": 17,
+    "script": "result_23.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_23.py\", line 137, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: CUDA error: an illegal memory access was encountered\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions."
+  },
+  {
+    "task_id": 18,
+    "script": "result_24.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/log_softmax/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module log_softmax...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module log_softmax...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_24.py\", line 141, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 19,
+    "script": "result_25.py",
+    "status": "success",
+    "Model": "0.011397333350032568 ms",
+    "ModelNew": "0.007196699561459334 ms"
+  },
+  {
+    "task_id": 20,
+    "script": "result_26.py",
+    "status": "success",
+    "Model": "0.007200930221547741 ms",
+    "ModelNew": "0.010842031085081978 ms"
+  },
+  {
+    "task_id": 21,
+    "script": "result_27.py",
+    "status": "success",
+    "Model": "0.008219402270049027 ms",
+    "ModelNew": "0.010376784283959982 ms"
+  },
+  {
+    "task_id": 22,
+    "script": "result_28.py",
+    "status": "success",
+    "Model": "0.00673276403908398 ms",
+    "ModelNew": "0.01047388234120958 ms"
+  },
+  {
+    "task_id": 23,
+    "script": "result_29.py",
+    "status": "success",
+    "Model": "0.008462011822383608 ms",
+    "ModelNew": "0.010846431376229898 ms"
+  },
+  {
+    "task_id": 24,
+    "script": "result_3.py",
+    "status": "success",
+    "Model": "0.10042239874601364 ms",
+    "ModelNew": "4.027408123016357 ms"
+  },
+  {
+    "task_id": 25,
+    "script": "result_30.py",
+    "status": "success",
+    "Model": "0.015361483461710792 ms",
+    "ModelNew": "0.010259668315510924 ms"
+  },
+  {
+    "task_id": 26,
+    "script": "result_31.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/elu_cuda/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module elu_cuda...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module elu_cuda...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_31.py\", line 92, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 27,
+    "script": "result_32.py",
+    "status": "success",
+    "Model": "0.006671069761153397 ms",
+    "ModelNew": "0.010977901006578514 ms"
+  },
+  {
+    "task_id": 28,
+    "script": "result_33.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/batchnorm2d...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/batchnorm2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module batchnorm2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module batchnorm2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_33.py\", line 157, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 29,
+    "script": "result_34.py",
+    "status": "compile_error",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_34.py\", line 107, in <module>\n    instance_norm_op = load_inline(\n                       ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'instance_norm': [1/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=instance_norm -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/cuda.cu -o cuda.cuda.o \nFAILED: cuda.cuda.o \n/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=instance_norm -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/cuda.cu -o cuda.cuda.o \n/home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/cuda.cu(87): error: expression must have bool type (or be convertible to bool)\n          weight ? weight.data_ptr<float>() : nullptr,\n          ^\n\n/home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/cuda.cu(88): error: expression must have bool type (or be convertible to bool)\n          bias ? bias.data_ptr<float>() : nullptr,\n          ^\n\n2 errors detected in the compilation of \"/home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/cuda.cu\".\n[2/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=instance_norm -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -fPIC -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/instance_norm/main.cpp -o main.o \nninja: build stopped: subcommand failed."
+  },
+  {
+    "task_id": 30,
+    "script": "result_35.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/group_norm/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module group_norm...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module group_norm...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_35.py\", line 187, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 31,
+    "script": "result_36.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/rms_norm_extension...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/rms_norm_extension/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module rms_norm_extension...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module rms_norm_extension...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_36.py\", line 136, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 32,
+    "script": "result_37.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/frobenius_norm/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module frobenius_norm...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_37.py\", line 56, in <module>\n    frobenius_norm_op = load_inline(\n                        ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'frobenius_norm'"
+  },
+  {
+    "task_id": 33,
+    "script": "result_38.py",
+    "status": "success",
+    "Model": "0.017966545779596676 ms",
+    "ModelNew": "1.1107839941978455 ms"
+  },
+  {
+    "task_id": 34,
+    "script": "result_39.py",
+    "status": "success",
+    "Model": "0.0159761655176508 ms",
+    "ModelNew": "3.5026239156723022 ms"
+  },
+  {
+    "task_id": 35,
+    "script": "result_4.py",
+    "status": "success",
+    "Model": "0.04064494489946149 ms",
+    "ModelNew": "17.680383682250977 ms"
+  },
+  {
+    "task_id": 36,
+    "script": "result_40.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/layer_norm...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/layer_norm/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module layer_norm...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module layer_norm...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_40.py\", line 145, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 37,
+    "script": "result_41.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_41.py\", line 172, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 38,
+    "script": "result_42.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/maxpool2d...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/maxpool2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module maxpool2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module maxpool2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_42.py\", line 217, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 39,
+    "script": "result_43.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/maxpool3d...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/maxpool3d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module maxpool3d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module maxpool3d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_43.py\", line 193, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 40,
+    "script": "result_44.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/avg_pool_1d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module avg_pool_1d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module avg_pool_1d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_44.py\", line 137, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 41,
+    "script": "result_45.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/avg_pool_2d...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/avg_pool_2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module avg_pool_2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module avg_pool_2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_45.py\", line 187, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 42,
+    "script": "result_46.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/avg_pool_3d...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/avg_pool_3d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module avg_pool_3d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_46.py\", line 131, in <module>\n    avg_pool_3d_op = load_inline(\n                     ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'avg_pool_3d'"
+  },
+  {
+    "task_id": 43,
+    "script": "result_47.py",
+    "status": "compile_error",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_47.py\", line 92, in <module>\n    sum_reduction_ops = load_inline(\n                        ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'sum_reduction_ops': [1/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=sum_reduction_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/cuda.cu -o cuda.cuda.o \nFAILED: cuda.cuda.o \n/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=sum_reduction_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/cuda.cu -o cuda.cuda.o \n/home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/cuda.cu(69): error: no suitable conversion function from \"const at::DeprecatedTypeProperties\" to \"c10::ScalarType\" exists\n     ; at::ScalarType _st = ::detail::scalar_type(the_type); ; switch (_st) { case at::ScalarType::Double: { do { if constexpr (!at::should_include_kernel_dtype( at_dispatch_name, at::ScalarType::Double)) { if (!(false)) { ::c10::detail::torchCheckFail( __func__, \"/home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/cuda.cu\", static_cast<uint32_t>(69), (::c10::detail::torchCheckMsgImpl( \"Expected \" \"false\" \" to be true, but got false.  \" \"(Could this error message be improved?  If so, \" \"please report an enhancement request to PyTorch.)\", \"dtype '\", toString(at::ScalarType::Double), \"' not selected for kernel tag \", at_dispatch_name))); }; } } while (0); using scalar_t [[maybe_unused]] = c10::impl::ScalarTypeToCPPTypeT<at::ScalarType::Double>; return \n                                                  ^\n\n1 error detected in the compilation of \"/home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/cuda.cu\".\n[2/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=sum_reduction_ops -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -fPIC -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/sum_reduction_ops/main.cpp -o main.o \nninja: build stopped: subcommand failed."
+  },
+  {
+    "task_id": 44,
+    "script": "result_48.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/mean_reduction...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/mean_reduction/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module mean_reduction...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module mean_reduction...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_48.py\", line 160, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 45,
+    "script": "result_49.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/max_reduce/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module max_reduce...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module max_reduce...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_49.py\", line 131, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 46,
+    "script": "result_5.py",
+    "status": "compile_error",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_5.py\", line 94, in <module>\n    inputs = [x.cuda() for x in inputs]\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_5.py\", line 94, in <listcomp>\n    inputs = [x.cuda() for x in inputs]\n              ^^^^^^\nAttributeError: 'float' object has no attribute 'cuda'"
+  },
+  {
+    "task_id": 47,
+    "script": "result_50.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/product_reduce...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/product_reduce/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module product_reduce...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_50.py\", line 107, in <module>\n    product_reduce_op = load_inline(\n                        ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'product_reduce'"
+  },
+  {
+    "task_id": 48,
+    "script": "result_51.py",
+    "status": "compile_error",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_51.py\", line 97, in <module>\n    argmax_op = load_inline(\n                ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'argmax_op': [1/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=argmax_op -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/argmax_op/cuda.cu -o cuda.cuda.o \nFAILED: cuda.cuda.o \n/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -DTORCH_EXTENSION_NAME=argmax_op -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_100,code=compute_100 -gencode=arch=compute_100,code=sm_100 --compiler-options '-fPIC' -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/argmax_op/cuda.cu -o cuda.cuda.o \n/home/jinqic/.cache/torch_extensions/py311_cu128/argmax_op/cuda.cu(69): error: no suitable user-defined conversion from \"at::Tensor\" to \"at::IntArrayRef\" (aka \"c10::ArrayRef<signed long>\") exists\n      auto input_permuted = input.permute(perm_tensor);\n                                          ^\n\n1 error detected in the compilation of \"/home/jinqic/.cache/torch_extensions/py311_cu128/argmax_op/cuda.cu\".\n[2/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=argmax_op -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\\\"_gcc\\\" -DPYBIND11_STDLIB=\\\"_libstdcpp\\\" -DPYBIND11_BUILD_ABI=\\\"_cxxabi1016\\\" -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /home/jinqic/miniconda3/envs/tvm-build-venv/include/python3.11 -fPIC -std=c++17 -c /home/jinqic/.cache/torch_extensions/py311_cu128/argmax_op/main.cpp -o main.o \nninja: build stopped: subcommand failed."
+  },
+  {
+    "task_id": 49,
+    "script": "result_52.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/argmin_extension...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/argmin_extension/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module argmin_extension...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_52.py\", line 74, in <module>\n    argmin_extension = load_inline(\n                       ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'argmin_extension'"
+  },
+  {
+    "task_id": 50,
+    "script": "result_53.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/min_reduction...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/min_reduction/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module min_reduction...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_53.py\", line 65, in <module>\n    min_reduction_op = load_inline(\n                       ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'min_reduction'"
+  },
+  {
+    "task_id": 51,
+    "script": "result_54.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_op...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv3d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv3d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_54.py\", line 202, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 52,
+    "script": "result_55.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_55.py\", line 229, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 53,
+    "script": "result_56.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv2d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv2d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv2d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_56.py\", line 279, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 54,
+    "script": "result_57.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_57.py\", line 88, in <module>\n    conv_transpose2d_op = load_inline(\n                          ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'conv_transpose2d'"
+  },
+  {
+    "task_id": 55,
+    "script": "result_58.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_58.py\", line 247, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 56,
+    "script": "result_59.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv3d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv3d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_59.py\", line 220, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 57,
+    "script": "result_6.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/matmul/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module matmul...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_6.py\", line 84, in <module>\n    matmul_op = load_inline(\n                ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'matmul'"
+  },
+  {
+    "task_id": 58,
+    "script": "result_60.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_custom...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_custom/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv3d_custom...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv3d_custom...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_60.py\", line 267, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 59,
+    "script": "result_61.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_61.py\", line 218, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 60,
+    "script": "result_62.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv2d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv2d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv2d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_62.py\", line 207, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 61,
+    "script": "result_63.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv2d_cuda/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv2d_cuda...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv2d_cuda...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_63.py\", line 188, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 62,
+    "script": "result_64.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_transpose...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_transpose/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv1d_transpose...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv1d_transpose...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_64.py\", line 230, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 63,
+    "script": "result_65.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/transposed_conv2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module transposed_conv2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module transposed_conv2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_65.py\", line 231, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 64,
+    "script": "result_66.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_relu_bias...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv3d_relu_bias/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv3d_relu_bias...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv3d_relu_bias...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_66.py\", line 344, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 65,
+    "script": "result_67.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_op...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv1d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv1d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_67.py\", line 217, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 66,
+    "script": "result_68.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_68.py\", line 263, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 67,
+    "script": "result_69.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_69.py\", line 219, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 68,
+    "script": "result_7.py",
+    "status": "success",
+    "Model": "0.4998439960181713 ms",
+    "ModelNew": "2.184511959552765 ms"
+  },
+  {
+    "task_id": 69,
+    "script": "result_70.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d_op...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_70.py\", line 212, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 70,
+    "script": "result_71.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d_op...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose2d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_71.py\", line 78, in <module>\n    conv_transpose2d_op = load_inline(\n                          ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'conv_transpose2d_op'"
+  },
+  {
+    "task_id": 71,
+    "script": "result_72.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_72.py\", line 254, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 72,
+    "script": "result_73.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_73.py\", line 224, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 73,
+    "script": "result_74.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_74.py\", line 237, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 74,
+    "script": "result_75.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose2d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_75.py\", line 74, in <module>\n    conv_transpose2d_op = load_inline(\n                          ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'conv_transpose2d_op'"
+  },
+  {
+    "task_id": 75,
+    "script": "result_76.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_cuda/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv1d_cuda...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv1d_cuda...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_76.py\", line 178, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 76,
+    "script": "result_77.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose3d_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose3d_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose3d_op...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_77.py\", line 238, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 77,
+    "script": "result_78.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv_transpose2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv_transpose2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv_transpose2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_78.py\", line 224, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 78,
+    "script": "result_79.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/conv1d_transpose/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module conv1d_transpose...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module conv1d_transpose...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_79.py\", line 205, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 79,
+    "script": "result_8.py",
+    "status": "success",
+    "Model": "4.530176162719727 ms",
+    "ModelNew": "31.98259162902832 ms"
+  },
+  {
+    "task_id": 80,
+    "script": "result_80.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_80.py\", line 278, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 81,
+    "script": "result_81.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_81.py\", line 210, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 82,
+    "script": "result_82.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/depthwise_conv2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module depthwise_conv2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module depthwise_conv2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_82.py\", line 195, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 83,
+    "script": "result_83.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_83.py\", line 205, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 84,
+    "script": "result_84.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/depthwise_conv2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module depthwise_conv2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module depthwise_conv2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_84.py\", line 205, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 85,
+    "script": "result_85.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/depthwise_conv2d/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module depthwise_conv2d...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module depthwise_conv2d...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_85.py\", line 230, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 86,
+    "script": "result_86.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_86.py\", line 305, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 87,
+    "script": "result_87.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_87.py\", line 182, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 88,
+    "script": "result_88.py",
+    "status": "success",
+    "Model": "0.054817684033983634 ms",
+    "ModelNew": "0.02296585364766964 ms"
+  },
+  {
+    "task_id": 89,
+    "script": "result_89.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/prefix_sum...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/prefix_sum/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module prefix_sum...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module prefix_sum...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_89.py\", line 158, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 90,
+    "script": "result_9.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/matmul_extension/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module matmul_extension...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module matmul_extension...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_9.py\", line 137, in <module>\n    model_new_result = ModelNew()(*inputs)\n                       ^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1751, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1762, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_9.py\", line 91, in forward\n    assert A.device() == B.device(), \"Input tensors must be on the same device\"\n           ^^^^^^^^^^\nTypeError: 'torch.device' object is not callable"
+  },
+  {
+    "task_id": 91,
+    "script": "result_90.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/cumprod_op...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/cumprod_op/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module cumprod_op...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_90.py\", line 51, in <module>\n    cumprod_op = load_inline(\n                 ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'cumprod_op'"
+  },
+  {
+    "task_id": 92,
+    "script": "result_91.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/reverse_cumsum/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module reverse_cumsum...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module reverse_cumsum...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_91.py\", line 112, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 93,
+    "script": "result_92.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/exclusive_cumsum/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module exclusive_cumsum...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module exclusive_cumsum...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_92.py\", line 130, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 94,
+    "script": "result_93.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/masked_cumsum/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module masked_cumsum...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module masked_cumsum...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_93.py\", line 115, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 95,
+    "script": "result_94.py",
+    "status": "success",
+    "Model": "0.0224249411292155 ms",
+    "ModelNew": "0.01353852634171122 ms"
+  },
+  {
+    "task_id": 96,
+    "script": "result_95.py",
+    "status": "compile_error",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nCreating extension directory /home/jinqic/.cache/torch_extensions/py311_cu128/cross_entropy_loss...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/cross_entropy_loss/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module cross_entropy_loss...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nTraceback (most recent call last):\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2556, in _run_ninja_build\n    subprocess.run(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_95.py\", line 54, in <module>\n    cross_entropy_loss_op = load_inline(\n                            ^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2037, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2119, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2272, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2573, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'cross_entropy_loss'"
+  },
+  {
+    "task_id": 97,
+    "script": "result_96.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/smooth_l1_loss/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module smooth_l1_loss...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module smooth_l1_loss...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_96.py\", line 85, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 98,
+    "script": "result_97.py",
+    "status": "success",
+    "Model": "0.09503200146205285 ms",
+    "ModelNew": "0.5564439930021763 ms"
+  },
+  {
+    "task_id": 99,
+    "script": "result_98.py",
+    "status": "incorrect",
+    "error": "/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_98.py\", line 101, in <module>\n    assert torch.allclose(model_result.detach().cpu(), model_new_result.detach().cpu(), rtol=1e-02, atol=1e-03)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  },
+  {
+    "task_id": 100,
+    "script": "result_99.py",
+    "status": "incorrect",
+    "error": "Using /home/jinqic/.cache/torch_extensions/py311_cu128 as PyTorch extensions root...\nDetected CUDA files, patching ldflags\nEmitting ninja build file /home/jinqic/.cache/torch_extensions/py311_cu128/triplet_margin_loss/build.ninja...\n/home/jinqic/miniconda3/envs/tvm-build-venv/lib/python3.11/site-packages/torch/utils/cpp_extension.py:2406: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. \nIf this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].\n  warnings.warn(\nBuilding extension module triplet_margin_loss...\nAllowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)\nLoading extension module triplet_margin_loss...\nTraceback (most recent call last):\n  File \"/home/jinqic/work/tmp/15780/advanced/results/result_99.py\", line 126, in <module>\n    assert len(get_init_inputs()) == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError"
+  }
+]
