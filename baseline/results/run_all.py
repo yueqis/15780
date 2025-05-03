@@ -65,10 +65,8 @@ def main():
                 }
             )
 
-        print(results[-1])
-
-    with open("results.json", "w") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
+        with open("results.json", "w") as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
 
     print("\nAll tasks complete, save results to results.json")
 
